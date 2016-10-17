@@ -11,6 +11,12 @@ class Event extends Model
     protected $dates = ['date'];
 
 
+    public function application()
+    {
+        return $this->belongsTo('App\Application');
+    }
+
+
     public function engines()
     {
         return $this->hasMany('App\Engine');

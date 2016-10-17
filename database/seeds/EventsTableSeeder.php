@@ -13,6 +13,7 @@ class EventsTableSeeder extends Seeder
     {
 
         DB::table('events')->insert([
+            'application_id' => 1,
             'prefix' => '161112_dpworld',
             'pre' => 'La Carrera',
             'name' => 'DP World Callao 6k',
@@ -41,6 +42,7 @@ class EventsTableSeeder extends Seeder
         ]);
 
         DB::table('events')->insert([
+            'application_id' => 1,
             'prefix' => '170521_lima42k',
             'pre' => 'La Maratón',
             'name' => 'Lima42k',

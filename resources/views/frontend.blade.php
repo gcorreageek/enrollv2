@@ -6,10 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url('css/app.css') }}">
     <link rel="stylesheet" href="{{ url('css/color.css') }}">
+
     @if(File::exists(public_path('skins/' . $event->prefix . '/style.css')))
         <link rel="stylesheet" href="{{ url('skins/' . $event->prefix . '/style.css') }}">
     @endif
-    <title>Pacific Timing - Enroll Engine : {{ $event->name }} {{ $event->date->year }}</title>
+
+    @if($event->id == 0)
+        <title>{{ $event->application->owner_nickname }} - {{ APP_NAME }}</title>
+    @else
+        <title>{{ $event->application->owner_nickname }} - {{ APP_NAME }} : {{ $event->name }} {{ $event->date->year }}</title>
+    @endif
+
 </head>
 
 <body id="app_body">

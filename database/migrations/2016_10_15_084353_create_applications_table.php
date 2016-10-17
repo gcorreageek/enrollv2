@@ -17,6 +17,7 @@ class CreateApplicationsTable extends Migration
             $table->increments('id');
             $table->string('version', 32);
             $table->string('owner_name', 128);
+            $table->string('owner_nickname', 128);
             $table->string('owner_id', 64);
             $table->string('owner_address', 128);
             $table->string('owner_telephone', 32);

@@ -14,6 +14,7 @@ class ApplicationsTableSeeder extends Seeder
         DB::table('applications')->insert([
             'version' => '2.0',
             'owner_name' => 'Pacific Timing E.I.R.L.',
+            'owner_nickname' => 'Pacific Timing',
             'owner_id' => '00000000000',
             'owner_address' => 'Calle Los Halcones 348, Surquillo',
             'owner_telephone' => '221-6282',

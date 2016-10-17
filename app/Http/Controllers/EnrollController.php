@@ -559,7 +559,8 @@ class EnrollController extends Controller
     {
         $event = Event::where('prefix', $prefix)->first();
         if (is_null($event)) {
-            $event = Event::makeDummy();
+            $event = Event::find(1);
+            $event->id = 0;
         }
         $error = session('error');
         return view('frontend.error', ['event' => $event, 'error' => $error]);
