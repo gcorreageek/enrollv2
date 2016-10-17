@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => 'enroll@pacifictiming.com',
+        'address' => 'eventos@pacifictiming.com',
         'name' => 'Pacific Timing',
     ],
 
