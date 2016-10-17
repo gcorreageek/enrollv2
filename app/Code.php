@@ -29,4 +29,18 @@ class Code extends Model
 
         return $code;
     }
+
+
+    public function lock()
+    {
+        $this->locked = true;
+        $this->save();
+    }
+
+
+    public function redeem()
+    {
+        $this->redeemed = true;
+        $this->save();
+    }
 }

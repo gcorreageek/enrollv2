@@ -11,15 +11,30 @@ class RangesTableSeeder extends Seeder
      */
     public function run()
     {
+
         DB::table('ranges')->insert([
             'engine_id' => 1,
-            'name' => 'Elite',
+            'name' => 'Interno',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
 
         DB::table('ranges')->insert([
             'engine_id' => 1,
+            'name' => 'Externo',
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('ranges')->insert([
+            'engine_id' => 2,
+            'name' => 'Elite',
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('ranges')->insert([
+            'engine_id' => 2,
             'name' => 'Regular',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),

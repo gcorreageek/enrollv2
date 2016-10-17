@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
-    <link rel="stylesheet" href="{{ url('css/mail.css') }}">
-    <link rel="stylesheet" href="{{ url('css/color.css') }}">
+    {{--<link rel="stylesheet" href="{{ url('css/mail.css') }}">--}}
+    {{--<link rel="stylesheet" href="{{ url('css/color.css') }}">--}}
+
 </head>
 
 <body>
 
-
+<link rel="stylesheet" href="https://enroll.maromina.com/css/mail.css">
+<link rel="stylesheet" href="https://enroll.maromina.com/css/color.css">
 
 <table cellpadding="0" cellspacing="0" align="center" id="mail_container">
 

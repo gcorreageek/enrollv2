@@ -13,6 +13,14 @@ class RatesTableSeeder extends Seeder
     {
         DB::table('rates')->insert([
             'track_id' => 1,
+            'price' => 30,
+            'start' => \Carbon\Carbon::createFromDate(2016, 10, 1),
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('rates')->insert([
+            'track_id' => 2,
             'price' => 100,
             'start' => \Carbon\Carbon::createFromDate(2016, 10, 1),
             'created_at' => \Carbon\Carbon::now(),
@@ -20,7 +28,7 @@ class RatesTableSeeder extends Seeder
         ]);
 
         DB::table('rates')->insert([
-            'track_id' => 1,
+            'track_id' => 2,
             'price' => 110,
             'start' => \Carbon\Carbon::createFromDate(2017, 2, 1),
             'created_at' => \Carbon\Carbon::now(),
@@ -28,7 +36,7 @@ class RatesTableSeeder extends Seeder
         ]);
 
         DB::table('rates')->insert([
-            'track_id' => 1,
+            'track_id' => 2,
             'price' => 120,
             'start' => \Carbon\Carbon::createFromDate(2017, 4, 24),
             'created_at' => \Carbon\Carbon::now(),
@@ -36,7 +44,7 @@ class RatesTableSeeder extends Seeder
         ]);
 
         DB::table('rates')->insert([
-            'track_id' => 2,
+            'track_id' => 3,
             'price' => 80,
             'start' => \Carbon\Carbon::createFromDate(2016, 10, 1),
             'created_at' => \Carbon\Carbon::now(),
@@ -44,7 +52,7 @@ class RatesTableSeeder extends Seeder
         ]);
 
         DB::table('rates')->insert([
-            'track_id' => 2,
+            'track_id' => 3,
             'price' => 90,
             'start' => \Carbon\Carbon::createFromDate(2017, 2, 1),
             'created_at' => \Carbon\Carbon::now(),
@@ -52,7 +60,7 @@ class RatesTableSeeder extends Seeder
         ]);
 
         DB::table('rates')->insert([
-            'track_id' => 2,
+            'track_id' => 3,
             'price' => 100,
             'start' => \Carbon\Carbon::createFromDate(2017, 4, 24),
             'created_at' => \Carbon\Carbon::now(),
@@ -60,7 +68,7 @@ class RatesTableSeeder extends Seeder
         ]);
 
         DB::table('rates')->insert([
-            'track_id' => 3,
+            'track_id' => 4,
             'price' => 60,
             'start' => \Carbon\Carbon::createFromDate(2016, 10, 1),
             'created_at' => \Carbon\Carbon::now(),
@@ -68,7 +76,7 @@ class RatesTableSeeder extends Seeder
         ]);
 
         DB::table('rates')->insert([
-            'track_id' => 3,
+            'track_id' => 4,
             'price' => 75,
             'start' => \Carbon\Carbon::createFromDate(2017, 2, 1),
             'created_at' => \Carbon\Carbon::now(),
@@ -76,7 +84,7 @@ class RatesTableSeeder extends Seeder
         ]);
 
         DB::table('rates')->insert([
-            'track_id' => 3,
+            'track_id' => 4,
             'price' => 90,
             'start' => \Carbon\Carbon::createFromDate(2017, 4, 24),
             'created_at' => \Carbon\Carbon::now(),

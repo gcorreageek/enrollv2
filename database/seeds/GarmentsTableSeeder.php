@@ -12,6 +12,13 @@ class GarmentsTableSeeder extends Seeder
     public function run()
     {
         DB::table('garments')->insert([
+            'name' => 'Polo DP World Callao 2016',
+            'description' => null,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('garments')->insert([
             'name' => 'Polo Maratón',
             'description' => null,
             'created_at' => \Carbon\Carbon::now(),

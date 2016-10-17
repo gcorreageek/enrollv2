@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
@@ -118,6 +119,20 @@ class Event extends Model
     public function longDate()
     {
         return $this->date->day . ' de ' . $this->verboseMonth() . ' de ' . $this->date->year;
+    }
+
+
+    static public function makeDummy()
+    {
+        $event = new self();
+
+        $event->id = 0;
+        $event->prefix = '';
+        $event->pre = '';
+        $event->name = '';
+        $event->date = Carbon::now();
+
+        return $event;
     }
 
 

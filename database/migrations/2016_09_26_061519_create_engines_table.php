@@ -23,6 +23,7 @@ class CreateEnginesTable extends Migration
             $table->string('assign_method', 16); //onAge, onYear
             $table->boolean('delegate_pickup');
             $table->string('event_change', 16); //allowDecrease, notAllowed, allowAll
+            $table->string('description', 128)->nullable();
             $table->timestamps();
         });
     }

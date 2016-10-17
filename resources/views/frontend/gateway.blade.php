@@ -88,7 +88,7 @@
 
         <div class="form-group">{!! Form::submit('Continuar', ['class' => 'form-control btn btn-primary']) !!}</div>
         @if($engine->event->engines()->count() > 1)
-            <div class="form-group">{!! Form::button('Regresar', ['class' => 'form-control btn btn-danger event_cancel_button']) !!}</div>
+            <div class="form-group">{!! Form::button('Regresar', ['class' => 'form-control btn btn-danger gateway_cancel_button']) !!}</div>
         @endif
 
         {!! Form::close() !!}
@@ -100,11 +100,29 @@
 
 @section("script")
     <script>
+
+        if ( $('input[type=radio][name=pay]').length ) {
+            $('#gateway').prop("selectedIndex", 0).prop("disabled", true);
+            $('#code').val('').prop("disabled", true);
+        }
+
         $('.dob_component').change(function () {
-            //$('.dob').val($('.dob_year').val() + '-' + $('.dob_month').val() + '-' + $('.dob_day').val());
             $('.dob').val($('.dob_year').val() + '-' + ('00' + $('.dob_month').val()).slice(-2) + '-' + ('00' + $('.dob_day').val()).slice(-2));
         });
 
+        $('.gateway_cancel_button').on("click", function () {
+            window.location = "{{ url($event->prefix) }}";
+        });
+
+        $('input[type=radio][name=pay]').change(function () {
+            if (this.value == 'code') {
+                $('#gateway').prop("selectedIndex", 0).prop("disabled", true);
+                $('#code').prop("disabled", false).val('');
+            } else {
+                $('#gateway').prop("disabled", false).prop("selectedIndex", 0);
+                $('#code').val('').prop("disabled", true);
+            }
+        });
 
     </script>
 @endsection

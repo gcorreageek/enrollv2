@@ -17,9 +17,9 @@ class CreateCodesTable extends Migration
             $table->increments('id');
             $table->integer('range_id', false, true);
             $table->integer('track_id', false, true);
-            $table->string('code', 16);
-            $table->boolean('redeemed');
-            $table->mediumInteger('bib', false, true);
+            $table->string('code', 16)->unique();
+            $table->boolean('redeemed')->default(false);
+            $table->boolean('locked')->default(false);
             $table->timestamps();
         });
     }

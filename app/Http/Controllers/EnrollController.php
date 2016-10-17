@@ -31,6 +31,12 @@ use Symfony\Component\VarDumper\Caster\TraceStub;
 class EnrollController extends Controller
 {
 
+    function __construct()
+    {
+        $this->middleware('availability', ['only' => ['index', 'engine', 'gateway']]);
+    }
+
+
     public function index($prefix)
     {
         $event = Event::where('prefix', $prefix)->first();
@@ -44,7 +50,8 @@ class EnrollController extends Controller
 
     public function engine($prefix)
     {
-
+        $event = Event::where('prefix', $prefix)->first();
+        return view('frontend.engine', ['event' => $event]);
     }
 
 
@@ -96,6 +103,15 @@ class EnrollController extends Controller
                     'error' => 'Lo sentimos, el código ' . strtoupper($request->get('code')) . ' no está habilitado.'
                 ]);
             }
+            if ($code->locked == true) {
+                $now = Carbon::now();
+                $unlockTime = $code->updated_at->addMinutes($event->lock_lapse);
+                if ($now->lt($unlockTime)) {
+                    return redirect($prefix . '/error')->with([
+                        'error' => 'Lo sentimos, el código ' . strtoupper($request->get('code')) . ' se encuentra temporalmente bloqueado debido a una inscripción no terminada, por favor intente nuevamente en aproximadamente ' . $event->lock_lapse . ' minutos.'
+                    ]);
+                }
+            }
             if ($code->track_id > 0) {
                 if ($code->track->categorySafe($age, $request->get('dob_year')) == false || $code->track->genderSafe($request->get('gender')) == false) {
                     // ERROR: Track is not safe for given dob and/or gender
@@ -125,12 +141,22 @@ class EnrollController extends Controller
             }
         }
 
+        if ($request->get('pay') == 'code') {
+            $code->lock();
+        }
+
         return redirect($prefix . '/' . $engine->id . '/runner')->withInput();
     }
 
 
     public function runner($prefix, $engine_id)
     {
+        if (is_null(old('dob'))) {
+            return redirect($prefix . '/error')->with([
+                'error' => 'Lo sentimos, se ha producido un error en su inscripción.'
+            ]);
+        }
+
         $event = Event::where('prefix', $prefix)->first();
         $engine = Engine::find($engine_id);
         $dob = Carbon::parse(old('dob'));
@@ -141,7 +167,7 @@ class EnrollController extends Controller
         $defaultLocation = $event->getDefaultLocation();
 
         if (old('pay') == 'code') {
-            $code = Code::find(old('code'));
+            $code = Code::where('code', old('code'))->first();
         }
 
         if (old('pay') == 'gateway') {
@@ -176,7 +202,7 @@ class EnrollController extends Controller
         $transaction = Transaction::makeDummy();
 
         if ($request->get('pay') == 'code') {
-            $code = Code::find($request->get('code'));
+            $code = Code::find($request->get('code_id'));
         }
 
         if ($request->get('pay') == 'gateway') {
@@ -224,15 +250,17 @@ class EnrollController extends Controller
             'comment' => ''
         ]);
 
-        return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $runner->id . '/options');
+        $encrypted_runner_id = Crypt::encrypt($runner->id);
+
+        return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $encrypted_runner_id . '/options');
     }
 
 
-    public function options($prefix, $engine_id, $track_id, $runner_id)
+    public function options($prefix, $engine_id, $track_id, $encrypted_runner_id)
     {
         $event = Event::where('prefix', $prefix)->first();
         $engine = Engine::find($engine_id);
-        $runner = Runner::find($runner_id);
+        $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
         $track = Track::find($track_id);
         $sizes = $track->garment->sizes()->wherePivot('gender', $runner->gender)->get();
         $options = $runner->tracks()->find($track->id);
@@ -263,12 +291,12 @@ class EnrollController extends Controller
     }
 
 
-    public function persistOptions($prefix, $engine_id, $track_id, $runner_id, Requests\OptionsRequest $request)
+    public function persistOptions($prefix, $engine_id, $track_id, $encrypted_runner_id, Requests\OptionsRequest $request)
     {
         $event = Event::where('prefix', $prefix)->first();
         $engine = Engine::find($engine_id);
         $track = Track::find($track_id);
-        $runner = Runner::find($runner_id);
+        $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
         $options = $runner->tracks()->find($track->id)->pivot;
 
         $time_goal = Carbon::createFromTime($request->get('hour_goal'), $request->get('minute_goal'), $request->get('second_goal'));
@@ -287,7 +315,7 @@ class EnrollController extends Controller
         ]);
 
         if ($options->code_id > 0) {
-            return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $runner->id . '/subscribe');
+            return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $encrypted_runner_id . '/subscribe');
         }
 
         if ($options->transaction_id > 0) {
@@ -325,8 +353,10 @@ class EnrollController extends Controller
         $transaction->message = $response['message'];
         $transaction->save();
 
+        $encrypted_runner_id = Crypt::encrypt($runner->id);
+
         if ($transaction->status == 1) {
-            return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $runner->id . '/subscribe');
+            return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $encrypted_runner_id . '/subscribe');
         } else {
             return redirect($prefix . '/error')->with([
                 'error' => 'Lo sentimos, la operación fue rechazada. Por favor comuníquese con su banco e intente nuevamente.'
@@ -335,13 +365,13 @@ class EnrollController extends Controller
     }
 
 
-    public function subscribe($prefix, $engine_id, $track_id, $runner_id)
+    public function subscribe($prefix, $engine_id, $track_id, $encrypted_runner_id)
     {
         $app = Application::find(1);
         $event = Event::where('prefix', $prefix)->first();
         $engine = Engine::find($engine_id);
         $track = Track::find($track_id);
-        $runner = Runner::find($runner_id);
+        $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
         $options = $runner->tracks()->find($track->id)->pivot;
         $code = Code::makeDummy();
         $transaction = Transaction::makeDummy();
@@ -351,6 +381,7 @@ class EnrollController extends Controller
         if ($options->code_id > 0) {
             $code = Code::find($options->code_id);
             $range = Range::find($code->range_id);
+            $code->redeem();
         }
 
         if ($options->transaction_id > 0) {
@@ -376,7 +407,7 @@ class EnrollController extends Controller
 
         Mail::to($runner->mail)->send(new Welcome($app, $event, $engine, $track, $runner, $code, $transaction, $gateway, $range, $category, $size, $garment));
 
-        return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $runner->id . '/manifest');
+        return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $encrypted_runner_id . '/manifest');
 
 //        return view('mails.welcome')->with([
 //            'app' => $app,
@@ -396,12 +427,12 @@ class EnrollController extends Controller
     }
 
 
-    public function manifest($prefix, $engine_id, $track_id, $runner_id)
+    public function manifest($prefix, $engine_id, $track_id, $encrypted_runner_id)
     {
         $event = Event::where('prefix', $prefix)->first();
         $engine = Engine::find($engine_id);
         $track = Track::find($track_id);
-        $runner = Runner::find($runner_id);
+        $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
         $options = $runner->tracks()->find($track->id)->pivot;
         $app = Application::find(1);
         $category = Category::find($options->category_id);
@@ -480,15 +511,14 @@ class EnrollController extends Controller
     }
 
 
-    public function pdf($prefix, $engine_id, $track_id, $runner_id, $encrypted_track_id, $encrypted_runner_id)
+    public function pdf($prefix, $engine_id, $track_id, $encrypted_runner_id)
     {
 
         $decrypted_runner_id = Crypt::decrypt($encrypted_runner_id);
-        $decrypted_track_id = Crypt::decrypt($encrypted_track_id);
 
         $event = Event::where('prefix', $prefix)->first();
         $engine = Engine::find($engine_id);
-        $track = Track::find($decrypted_track_id);
+        $track = Track::find($track_id);
         $runner = Runner::find($decrypted_runner_id);
         $options = $runner->tracks()->find($track->id)->pivot;
         $app = Application::find(1);
@@ -528,6 +558,9 @@ class EnrollController extends Controller
     public function error($prefix)
     {
         $event = Event::where('prefix', $prefix)->first();
+        if (is_null($event)) {
+            $event = Event::makeDummy();
+        }
         $error = session('error');
         return view('frontend.error', ['event' => $event, 'error' => $error]);
     }

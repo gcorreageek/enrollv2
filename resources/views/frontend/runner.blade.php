@@ -19,7 +19,7 @@
 
         {!! Form::open(['url' => $prefix . '/' . $engine->id . '/persist_runner']) !!}
 
-        @if(session('pay') == 'code' && session('code')->track_id > 0)
+        @if($pay == 'code' && $code->track_id > 0)
             <h2>{{ $code->track->name }}</h2>
             {!! Form::hidden('track', $code->track->id, ['class' => 'form-control']) !!}
         @else
@@ -123,7 +123,7 @@
         </div>
 
         {!! Form::hidden('pay', $pay, ['class' => 'form-control']) !!}
-        {!! Form::hidden('code', $code->id, ['class' => 'form-control']) !!}
+        {!! Form::hidden('code_id', $code->id, ['class' => 'form-control']) !!}
         {!! Form::hidden('gateway', $gateway->id, ['class' => 'form-control']) !!}
         {!! Form::hidden('form', 'runner', ['class' => 'form-control']) !!}
 

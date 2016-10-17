@@ -9,6 +9,7 @@
     @if(File::exists(public_path('skins/' . $event->prefix . '/style.css')))
         <link rel="stylesheet" href="{{ url('skins/' . $event->prefix . '/style.css') }}">
     @endif
+    <title>Pacific Timing - Enroll Engine : {{ $event->name }} {{ $event->date->year }}</title>
 </head>
 
 <body id="app_body">

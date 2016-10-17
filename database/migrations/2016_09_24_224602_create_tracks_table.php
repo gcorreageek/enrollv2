@@ -23,6 +23,7 @@ class CreateTracksTable extends Migration
             $table->string('gender', 1)->nullable();
             $table->integer('garment_id', false, true);
             $table->boolean('custom_bib');
+            $table->boolean('starting_corrals');
             $table->string('description', 255)->nullable();
             $table->timestamps();
         });

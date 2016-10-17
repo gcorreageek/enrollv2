@@ -11,10 +11,11 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
+
         DB::table('categories')->insert([
             'track_id' => 1,
-            'min' => 18,
-            'max' => 34,
+            'min' => 15,
+            'max' => 17,
             'description' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
@@ -22,7 +23,7 @@ class CategoriesTableSeeder extends Seeder
 
         DB::table('categories')->insert([
             'track_id' => 1,
-            'min' => 35,
+            'min' => 18,
             'max' => 39,
             'description' => null,
             'created_at' => \Carbon\Carbon::now(),
@@ -32,53 +33,8 @@ class CategoriesTableSeeder extends Seeder
         DB::table('categories')->insert([
             'track_id' => 1,
             'min' => 40,
-            'max' => 44,
-            'description' => null,
-            'created_at' => \Carbon\Carbon::now(),
-            'updated_at' => \Carbon\Carbon::now(),
-        ]);
-
-        DB::table('categories')->insert([
-            'track_id' => 1,
-            'min' => 45,
-            'max' => 49,
-            'description' => null,
-            'created_at' => \Carbon\Carbon::now(),
-            'updated_at' => \Carbon\Carbon::now(),
-        ]);
-
-        DB::table('categories')->insert([
-            'track_id' => 1,
-            'min' => 50,
-            'max' => 54,
-            'description' => null,
-            'created_at' => \Carbon\Carbon::now(),
-            'updated_at' => \Carbon\Carbon::now(),
-        ]);
-
-        DB::table('categories')->insert([
-            'track_id' => 1,
-            'min' => 55,
-            'max' => 59,
-            'description' => null,
-            'created_at' => \Carbon\Carbon::now(),
-            'updated_at' => \Carbon\Carbon::now(),
-        ]);
-
-        DB::table('categories')->insert([
-            'track_id' => 1,
-            'min' => 60,
-            'max' => 64,
-            'description' => null,
-            'created_at' => \Carbon\Carbon::now(),
-            'updated_at' => \Carbon\Carbon::now(),
-        ]);
-
-        DB::table('categories')->insert([
-            'track_id' => 1,
-            'min' => 65,
             'max' => 99,
-            'description' => '65+',
+            'description' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -157,6 +113,78 @@ class CategoriesTableSeeder extends Seeder
 
         DB::table('categories')->insert([
             'track_id' => 3,
+            'min' => 18,
+            'max' => 34,
+            'description' => null,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('categories')->insert([
+            'track_id' => 3,
+            'min' => 35,
+            'max' => 39,
+            'description' => null,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('categories')->insert([
+            'track_id' => 3,
+            'min' => 40,
+            'max' => 44,
+            'description' => null,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('categories')->insert([
+            'track_id' => 3,
+            'min' => 45,
+            'max' => 49,
+            'description' => null,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('categories')->insert([
+            'track_id' => 3,
+            'min' => 50,
+            'max' => 54,
+            'description' => null,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('categories')->insert([
+            'track_id' => 3,
+            'min' => 55,
+            'max' => 59,
+            'description' => null,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('categories')->insert([
+            'track_id' => 3,
+            'min' => 60,
+            'max' => 64,
+            'description' => null,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('categories')->insert([
+            'track_id' => 3,
+            'min' => 65,
+            'max' => 99,
+            'description' => '65+',
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('categories')->insert([
+            'track_id' => 4,
             'min' => 16,
             'max' => 34,
             'description' => null,
@@ -165,7 +193,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         DB::table('categories')->insert([
-            'track_id' => 3,
+            'track_id' => 4,
             'min' => 35,
             'max' => 39,
             'description' => null,
@@ -174,7 +202,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         DB::table('categories')->insert([
-            'track_id' => 3,
+            'track_id' => 4,
             'min' => 40,
             'max' => 44,
             'description' => null,
@@ -183,7 +211,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         DB::table('categories')->insert([
-            'track_id' => 3,
+            'track_id' => 4,
             'min' => 45,
             'max' => 49,
             'description' => null,
@@ -192,7 +220,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         DB::table('categories')->insert([
-            'track_id' => 3,
+            'track_id' => 4,
             'min' => 50,
             'max' => 54,
             'description' => null,
@@ -201,7 +229,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         DB::table('categories')->insert([
-            'track_id' => 3,
+            'track_id' => 4,
             'min' => 55,
             'max' => 59,
             'description' => null,
@@ -210,7 +238,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         DB::table('categories')->insert([
-            'track_id' => 3,
+            'track_id' => 4,
             'min' => 60,
             'max' => 64,
             'description' => null,
@@ -219,7 +247,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         DB::table('categories')->insert([
-            'track_id' => 3,
+            'track_id' => 4,
             'min' => 65,
             'max' => 99,
             'description' => '65+',

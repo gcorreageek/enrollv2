@@ -5823,6 +5823,14 @@ hr {
   padding-top: 8px;
   padding-bottom: 3px; }
 
+.event_selector_button {
+  height: 100px;
+  white-space: normal;
+  margin-bottom: 20px; }
+
+.event_selector_button h3 {
+  margin-top: 0px; }
+
 #manifest_nav {
   padding-bottom: 10px; }
 
