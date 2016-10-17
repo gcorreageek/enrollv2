@@ -1,0 +1,28 @@
+$body-background: #CCCCCC;
+$main_text: #666666;
+
+$app-container-color: rgba(255,255,255,1);
+$primary-color: #0b5895;
+$secondary-color: #4e97ff;
+
+
+
+body, #app_colors{background-color: $body-background !important; color: $main_text !important;}
+
+h1, h2, h3, h4, h5, h6{color: $primary_color !important;}
+
+a, a:hover{color: $secondary-color !important;}
+
+.enroll_container{background-color: $app-container-color;}
+
+.border_color{border-color: $secondary-color;}
+
+.color_accent{color: $secondary-color;}
+
+.mail_top_bar_colors{background-color: $primary-color; color: $secondary-color;}
+
+.mail_copyright{background-color: $body-background !important;}
+
+
+
+

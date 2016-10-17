@@ -1,0 +1,35 @@
+/*
+$body-background: #fa4dff;
+$main_text: #666666;
+
+$app-container-color: rgba(255,255,255,0.8);
+$primary-color: #fa4dff;
+$secondary-color: #ff7805;
+
+$purple: #442f7d;
+$cyan: #1b95aa;
+*/
+
+
+body, #app_body{background-color: #FFFFFF !important; color: #666666 !important;}
+
+h1, h2, h3, h4, h5, h6{color: #442f7d !important;}
+
+a, a:hover{color: #1b95aa !important;}
+
+.enroll_container{background-color: rgba(255,255,255,0.9);}
+
+.border_color{border-color: #1b95aa;}
+
+.color_accent{color: #1b95aa;}
+
+.mail_top_bar_colors{background-color: #442f7d; color: #1b95aa;}
+
+.mail_copyright{background-color: #442f7d !important;}
+
+#app_body{
+    background-image: url("background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+

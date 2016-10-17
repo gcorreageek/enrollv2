@@ -1,0 +1,27 @@
+body, #app_colors {
+  background-color: #CCCCCC !important;
+  color: #666666 !important; }
+
+h1, h2, h3, h4, h5, h6 {
+  color: #0b5895 !important; }
+
+a, a:hover {
+  color: #4e97ff !important; }
+
+.enroll_container {
+  background-color: white; }
+
+.border_color {
+  border-color: #4e97ff; }
+
+.color_accent {
+  color: #4e97ff; }
+
+.mail_top_bar_colors {
+  background-color: #0b5895;
+  color: #4e97ff; }
+
+.mail_copyright {
+  background-color: #CCCCCC !important; }
+
+/*# sourceMappingURL=color.css.map */
