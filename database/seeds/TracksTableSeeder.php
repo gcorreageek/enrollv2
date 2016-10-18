@@ -20,7 +20,7 @@ class TracksTableSeeder extends Seeder
             'time' => \Carbon\Carbon::createFromTime(9, 0, 0),
             'gender' => null,
             'garment_id' => 1,
-            'custom_bib' => true,
+            'custom_bib' => false,
             'starting_corrals' => false,
             'description' => null,
             'created_at' => \Carbon\Carbon::now(),

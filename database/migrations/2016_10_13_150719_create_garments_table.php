@@ -17,6 +17,7 @@ class CreateGarmentsTable extends Migration
             $table->increments('id');
             $table->string('name', 64);
             $table->string('description', 255)->nullable();
+            $table->smallInteger('threshold', false, true)->default(0);
             $table->timestamps();
         });
     }
