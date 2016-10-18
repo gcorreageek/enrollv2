@@ -22,6 +22,7 @@ class Track extends Model
     {
         return $this->belongsToMany('App\Runner')->withPivot(
             'bib',
+            'enrolled',
             'code_id',
             'transaction_id',
             'category_id',

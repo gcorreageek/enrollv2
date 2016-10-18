@@ -494,7 +494,7 @@ class EnrollController extends Controller
 
         foreach ($runners->get() as $runner) {
             foreach ($runner->tracks as $track) {
-                if ($track->engine->event_id == $event->id) {
+                if ($track->engine->event_id == $event->id && $track->pivot->enrolled == true) {
                     $found_track = $track;
                 }
             }
