@@ -507,7 +507,9 @@ class EnrollController extends Controller
         $track = $found_track;
         $engine = $track->engine;
 
-        return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $runner->id . '/manifest');
+        $encrypted_runner_id = Crypt::encrypt($runner->id);
+
+        return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $encrypted_runner_id . '/manifest');
     }
 
 
