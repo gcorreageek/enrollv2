@@ -484,19 +484,22 @@ class EnrollController extends Controller
         $mail = $request->get('mail');
         $found_track = null;
 
-        $runner = Runner::where([['doc_num', $doc_num], ['mail', $mail]])->first();
+        $runners = Runner::where([['doc_num', $doc_num], ['mail', $mail]]);
 
-        if (is_null($runner)) {
+        if ($runners->count() == 0) {
             return redirect($prefix . '/error')->with([
                 'error' => 'Lo sentimos, no existe ninguna inscripción registrada para el documento ' . $doc_num . ' y el correo ' . $mail
             ]);
         }
 
-        foreach ($runner->tracks as $track) {
-            if ($track->engine->event->id == $event->id) {
-                $found_track  = $track;
+        foreach ($runners->get() as $runner) {
+            foreach ($runner->tracks as $track) {
+                if ($track->engine->event_id == $event->id) {
+                    $found_track = $track;
+                }
             }
         }
+
 
         if (is_null($found_track)) {
             return redirect($prefix . '/error')->with([
