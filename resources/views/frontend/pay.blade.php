@@ -6,7 +6,7 @@
 
 Procesando, por favor espere...
 
-@if($event->test_mode = true)
+@if($event->test_mode == true)
     {!! Form::open(['url' => $transaction->gateway->url_emulator, 'name' => 'pay_form']) !!}
 @else
     {!! Form::open(['url' => $transaction->gateway->url_production, 'name' => 'pay_form']) !!}
