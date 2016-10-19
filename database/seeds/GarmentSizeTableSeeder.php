@@ -17,7 +17,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 6,
             'gender' => 'M',
             'stock' => 99999,
-            'spent' => 10,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -27,7 +27,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 6,
             'gender' => 'F',
             'stock' => 99999,
-            'spent' => 11,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -37,7 +37,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 7,
             'gender' => 'M',
             'stock' => 99999,
-            'spent' => 27,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -47,7 +47,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 7,
             'gender' => 'F',
             'stock' => 99999,
-            'spent' => 7,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -57,7 +57,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 8,
             'gender' => 'M',
             'stock' => 99999,
-            'spent' => 16,
+            'spent' => 1,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -67,7 +67,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 8,
             'gender' => 'F',
             'stock' => 99999,
-            'spent' => 2,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -77,7 +77,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 5,
             'gender' => 'F',
             'stock' => 99999,
-            'spent' => 4,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -87,7 +87,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 6,
             'gender' => 'M',
             'stock' => 99999,
-            'spent' => 12,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -97,7 +97,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 6,
             'gender' => 'F',
             'stock' => 99999,
-            'spent' => 2,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -107,7 +107,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 7,
             'gender' => 'M',
             'stock' => 99999,
-            'spent' => 15,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -117,7 +117,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 7,
             'gender' => 'F',
             'stock' => 99999,
-            'spent' => 4,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -127,7 +127,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 8,
             'gender' => 'M',
             'stock' => 99999,
-            'spent' => 5,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -147,7 +147,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 9,
             'gender' => 'M',
             'stock' => 99999,
-            'spent' => 1,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -157,7 +157,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 5,
             'gender' => 'F',
             'stock' => 99999,
-            'spent' => 1,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -167,7 +167,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 6,
             'gender' => 'M',
             'stock' => 99999,
-            'spent' => 2,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -177,7 +177,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 6,
             'gender' => 'F',
             'stock' => 99999,
-            'spent' => 8,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -187,7 +187,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 7,
             'gender' => 'M',
             'stock' => 99999,
-            'spent' => 5,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -197,7 +197,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 7,
             'gender' => 'F',
             'stock' => 99999,
-            'spent' => 4,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -207,7 +207,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 8,
             'gender' => 'M',
             'stock' => 99999,
-            'spent' => 6,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -217,7 +217,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 8,
             'gender' => 'F',
             'stock' => 99999,
-            'spent' => 1,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -227,7 +227,7 @@ class GarmentSizeTableSeeder extends Seeder
             'size_id' => 9,
             'gender' => 'M',
             'stock' => 99999,
-            'spent' => 1,
+            'spent' => 0,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);

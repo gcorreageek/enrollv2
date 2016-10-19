@@ -17,7 +17,7 @@
 
     <div class="col-lg-6 col-lg-offset-3">
 
-        {!! Form::open(['url' => $prefix . '/' . $engine->id . '/persist_runner']) !!}
+        {!! Form::model($runner, ['url' => $event->prefix . '/' . $engine->id . '/persist_runner']) !!}
 
         @if($pay == 'code' && $code->track_id > 0)
             <h2>{{ $code->track->name }}</h2>
@@ -122,6 +122,12 @@
             {!! Form::textarea('allergies', null, ['class' => 'form-control', 'placeholder' => 'Alergias']) !!}
         </div>
 
+
+        @if(is_null($runner))
+            {!! Form::hidden('runner_id', 0, ['class' => 'form-control']) !!}
+        @else
+            {!! Form::hidden('runner_id', $runner->id, ['class' => 'form-control']) !!}
+        @endif
         {!! Form::hidden('pay', $pay, ['class' => 'form-control']) !!}
         {!! Form::hidden('code_id', $code->id, ['class' => 'form-control']) !!}
         {!! Form::hidden('gateway', $gateway->id, ['class' => 'form-control']) !!}

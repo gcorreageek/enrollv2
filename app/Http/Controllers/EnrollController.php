@@ -157,9 +157,12 @@ class EnrollController extends Controller
             ]);
         }
 
+        $dob = Carbon::parse(old('dob'));
+
+        $runner = Runner::where([['doc_num', old('doc_num')], ['gender', old('gender')], ['dob', $dob->format('Y-m-d')]])->first();
+
         $event = Event::where('prefix', $prefix)->first();
         $engine = Engine::find($engine_id);
-        $dob = Carbon::parse(old('dob'));
         $age = $event->date->diffInYears($dob);
         $safeTracks = $engine->getSafeTracks($age, $dob->year, old('gender'));
         $gateway = Gateway::makeDummy();
@@ -175,7 +178,6 @@ class EnrollController extends Controller
         }
 
         return view('frontend.runner', [
-            'prefix' => $prefix,
             'event' => $event,
             'engine' => $engine,
             'doc_type' => old('doc_type'),
@@ -189,6 +191,7 @@ class EnrollController extends Controller
             'defaultCountry' => $defaultLocation['country'],
             'defaultState' => $defaultLocation['state'],
             'defaultProvince' => $defaultLocation['province'],
+            'runner' => $runner,
         ]);
     }
 
@@ -229,9 +232,16 @@ class EnrollController extends Controller
             $transaction->save();
         }
 
-        $runner = Runner::create($request->all());
+        if ($request->get('runner_id') == 0) {
+            $runner = Runner::create($request->all());
+        } else {
+            $runner = Runner::find($request->get('runner_id'));
+            $runner->update($request->all());
+        }
+
         $runner->doc_num = strtoupper($runner->doc_num);
         $runner->save();
+
 
         $track->runners()->attach($runner->id, [
             'bib' => 0,

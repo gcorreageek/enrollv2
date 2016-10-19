@@ -17,6 +17,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 15,
             'max' => 17,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -26,6 +27,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 18,
             'max' => 39,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -35,6 +37,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 40,
             'max' => 99,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -44,6 +47,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 18,
             'max' => 34,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -53,6 +57,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 35,
             'max' => 39,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -62,6 +67,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 40,
             'max' => 44,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -71,6 +77,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 45,
             'max' => 49,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -80,6 +87,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 50,
             'max' => 54,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -89,6 +97,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 55,
             'max' => 59,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -98,6 +107,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 60,
             'max' => 64,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -107,6 +117,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 65,
             'max' => 99,
             'description' => '65+',
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -116,6 +127,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 18,
             'max' => 34,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -125,6 +137,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 35,
             'max' => 39,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -134,6 +147,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 40,
             'max' => 44,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -143,6 +157,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 45,
             'max' => 49,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -152,6 +167,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 50,
             'max' => 54,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -161,6 +177,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 55,
             'max' => 59,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -170,6 +187,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 60,
             'max' => 64,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -179,6 +197,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 65,
             'max' => 99,
             'description' => '65+',
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -188,6 +207,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 16,
             'max' => 34,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -197,6 +217,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 35,
             'max' => 39,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -206,6 +227,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 40,
             'max' => 44,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -215,6 +237,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 45,
             'max' => 49,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -224,6 +247,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 50,
             'max' => 54,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -233,6 +257,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 55,
             'max' => 59,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -242,6 +267,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 60,
             'max' => 64,
             'description' => null,
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -251,6 +277,7 @@ class CategoriesTableSeeder extends Seeder
             'min' => 65,
             'max' => 99,
             'description' => '65+',
+            'gender' => null,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
