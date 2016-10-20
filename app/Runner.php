@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Runner extends Model
 {
@@ -32,6 +33,7 @@ class Runner extends Model
     {
         return $this->belongsToMany('App\Track')->withPivot([
             'bib',
+            'ticket',
             'enrolled',
             'code_id',
             'transaction_id',
@@ -95,5 +97,30 @@ class Runner extends Model
 
         return $currentTrack;
     }
+
+
+
+
+
+    static public function cleanDuplicates()
+    {
+
+        $currentDuplicateDoc = '';
+        $masterID = '';
+
+        $duplicates = DB::select("SELECT id, doc_num, gender, dob, updated_at FROM runners WHERE doc_num IN (SELECT doc_num FROM runners GROUP BY doc_num HAVING COUNT(doc_num) > 1) order by doc_num");
+
+        foreach ($duplicates as $duplicate) {
+            if ($duplicate->doc_num != $currentDuplicateDoc) {
+                $currentDuplicateDoc = $duplicate->doc_num;
+                $masterID = $duplicate->id;
+            }
+
+            DB::update('update runner_track set runner_id = ? where runner_id = ?', [$masterID, $duplicate->id]);
+        }
+
+
+    }
+
 
 }

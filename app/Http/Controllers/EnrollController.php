@@ -78,7 +78,7 @@ class EnrollController extends Controller
         $runner = Runner::where('doc_num', strtoupper($request->get('doc_num')))->first();
         if (!is_null($runner)) {
             foreach ($engine->event->tracks as $track) {
-                if ($track->runners->contains($runner->id)) {
+                if ($track->runners()->wherePivot('enrolled', true)->get()->contains($runner->id)) {
                     // ERROR: Runner already enrolled to event
                     return redirect($prefix . '/error')->with([
                         'error' => 'Lo sentimos, el documento ' . strtoupper($request->get('doc_num')) . ' ya se encuentra registrado en este evento.'
@@ -203,9 +203,25 @@ class EnrollController extends Controller
         $track = Track::find($request->get('track'));
         $code = Code::makeDummy();
         $transaction = Transaction::makeDummy();
+        $ticket = 0;
+        $attachPivot = false;
+
+        if ($request->get('runner_id') == 0) {
+            $runner = Runner::create($request->all());
+        } else {
+            $runner = Runner::find($request->get('runner_id'));
+            $runner->update($request->all());
+        }
+
+        $runner->doc_num = strtoupper($runner->doc_num);
+        $runner->save();
 
         if ($request->get('pay') == 'code') {
             $code = Code::find($request->get('code_id'));
+            if ($runner->tracks()->wherePivot('code_id', $code->id)->count() == 0) {
+                $attachPivot = true;
+            }
+            $ticket = $code->id;
         }
 
         if ($request->get('pay') == 'gateway') {
@@ -230,89 +246,72 @@ class EnrollController extends Controller
             $transaction->status = 0;
             $transaction->store_id = $gateway->store_id;
             $transaction->save();
+
+            $ticket = $transaction->id;
+
+            $attachPivot = true;
         }
 
-        if ($request->get('runner_id') == 0) {
-            $runner = Runner::create($request->all());
-        } else {
-            $runner = Runner::find($request->get('runner_id'));
-            $runner->update($request->all());
+        if ($attachPivot == true) {
+            $track->runners()->attach($runner->id, [
+                'bib' => 0,
+                'ticket' => $ticket,
+                'code_id' => $code->id,
+                'transaction_id' => $transaction->id,
+                'category_id' => 0,
+                'size_id' => 0,
+                'nickname' => '',
+                'time_goal' => '00:00:00',
+                'time_best' => '00:00:00',
+                'event_name' => '',
+                'event_url' => '',
+                'relative_relationship' => '',
+                'relative_name' => '',
+                'relative_phone' => '',
+                'comment' => ''
+            ]);
         }
-
-        $runner->doc_num = strtoupper($runner->doc_num);
-        $runner->save();
-
-
-        $track->runners()->attach($runner->id, [
-            'bib' => 0,
-            'code_id' => $code->id,
-            'transaction_id' => $transaction->id,
-            'category_id' => 0,
-            'size_id' => 0,
-            'nickname' => '',
-            'time_goal' => '00:00:00',
-            'time_best' => '00:00:00',
-            'event_name' => '',
-            'event_url' => '',
-            'relative_relationship' => '',
-            'relative_name' => '',
-            'relative_phone' => '',
-            'comment' => ''
-        ]);
 
         $encrypted_runner_id = Crypt::encrypt($runner->id);
 
-        return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $encrypted_runner_id . '/options');
+        return redirect($event->prefix . '/' . $engine->id . '/' . $track->id . '/' . $ticket . '/' . $encrypted_runner_id . '/options');
     }
 
 
-    public function options($prefix, $engine_id, $track_id, $encrypted_runner_id)
+    public function options($prefix, $engine_id, $track_id, $ticket, $encrypted_runner_id)
     {
         $event = Event::where('prefix', $prefix)->first();
         $engine = Engine::find($engine_id);
         $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
         $track = Track::find($track_id);
         $sizes = $track->garment->sizes()->wherePivot('gender', $runner->gender)->get();
-        $options = $runner->tracks()->find($track->id);
-        $code = Code::makeDummy();
-        $transaction = Transaction::makeDummy();
-        $gateway = Gateway::makeDummy();
-
-        if ($options->pivot->code_id > 0) {
-            $code = Code::find($options->pivot->code_id);
-        }
-
-        if ($options->pivot->transaction_id > 0) {
-            $transaction = Transaction::find($options->pivot->transaction_id);
-            $gateway = Gateway::find($transaction->gateway_id);
-        }
 
         return view('frontend.options', [
             'prefix' => $prefix,
             'engine' => $engine,
             'runner' => $runner,
             'track' => $track,
-            'code' => $code,
-            'transaction' => $transaction,
-            'gateway' => $gateway,
             'sizes' => $sizes,
             'event' => $event,
+            'ticket' => $ticket,
         ]);
     }
 
 
-    public function persistOptions($prefix, $engine_id, $track_id, $encrypted_runner_id, Requests\OptionsRequest $request)
+    public function persistOptions($prefix, $engine_id, $track_id, $ticket, $encrypted_runner_id, Requests\OptionsRequest $request)
     {
         $event = Event::where('prefix', $prefix)->first();
         $engine = Engine::find($engine_id);
         $track = Track::find($track_id);
         $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
-        $options = $runner->tracks()->find($track->id)->pivot;
+        $options = $runner->tracks()->wherePivot('ticket', $ticket)->wherePivot('track_id', $track->id)->first()->pivot;
 
         $time_goal = Carbon::createFromTime($request->get('hour_goal'), $request->get('minute_goal'), $request->get('second_goal'));
         $time_best = Carbon::createFromTime($request->get('hour_best'), $request->get('minute_best'), $request->get('second_best'));
 
-        $runner->tracks()->updateExistingPivot($track->id, [
+        $pivot = [
+            'ticket' => $ticket,
+            'track_id' => $track->id,
             'size_id' => $request->get('size_id'),
             'nickname' => $request->get('nickname'),
             'time_goal' => $time_goal->toTimeString(),
@@ -322,10 +321,12 @@ class EnrollController extends Controller
             'relative_relationship' => $request->get('relative_relationship'),
             'relative_name' => $request->get('relative_name'),
             'relative_phone' => $request->get('relative_phone'),
-        ]);
+        ];
+
+        DB::update("UPDATE runner_track SET size_id = :size_id, nickname = :nickname, time_goal = :time_goal, time_best = :time_best, event_name = :event_name, event_url = :event_url, relative_relationship = :relative_relationship, relative_name = :relative_name, relative_phone = :relative_phone WHERE ticket = :ticket AND track_id = :track_id", $pivot);
 
         if ($options->code_id > 0) {
-            return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $encrypted_runner_id . '/subscribe');
+            return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $ticket . '/' . $encrypted_runner_id . '/subscribe');
         }
 
         if ($options->transaction_id > 0) {
@@ -354,6 +355,7 @@ class EnrollController extends Controller
         $track = Track::find($track_id);
         $runner = Runner::find($runner_id);
         $transaction = Transaction::find($transaction_id);
+        $ticket = $transaction_id;
 
         $transaction->status = $response['status'];
         $transaction->card_number = $response['card_number'];
@@ -366,7 +368,7 @@ class EnrollController extends Controller
         $encrypted_runner_id = Crypt::encrypt($runner->id);
 
         if ($transaction->status == 1) {
-            return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $encrypted_runner_id . '/subscribe');
+            return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $ticket . '/' . $encrypted_runner_id . '/subscribe');
         } else {
             return redirect($prefix . '/error')->with([
                 'error' => 'Lo sentimos, la operación fue rechazada. Por favor comuníquese con su banco e intente nuevamente.'
@@ -375,14 +377,14 @@ class EnrollController extends Controller
     }
 
 
-    public function subscribe($prefix, $engine_id, $track_id, $encrypted_runner_id)
+    public function subscribe($prefix, $engine_id, $track_id, $ticket, $encrypted_runner_id)
     {
         $app = Application::find(1);
         $event = Event::where('prefix', $prefix)->first();
         $engine = Engine::find($engine_id);
         $track = Track::find($track_id);
         $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
-        $options = $runner->tracks()->find($track->id)->pivot;
+        $options = $runner->tracks()->wherePivot('ticket', $ticket)->wherePivot('track_id', $track->id)->first()->pivot;
         $code = Code::makeDummy();
         $transaction = Transaction::makeDummy();
         $gateway = Gateway::makeDummy();
@@ -408,7 +410,7 @@ class EnrollController extends Controller
 
         $category = $track->assignCategory($event->date->diffInYears($runner->dob), $runner->dob->year);
 
-        $runner->tracks()->updateExistingPivot($track->id, ['enrolled' => true, 'bib' => $bib, 'category_id' => $category->id]);
+        DB::update("UPDATE runner_track SET enrolled = true, bib = :bib, category_id = :category_id WHERE ticket = :ticket AND track_id = :track_id", ['bib' => $bib, 'category_id' => $category->id, 'ticket' => $ticket, 'track_id' => $track->id]);
 
         $size = Size::find($options->size_id);
         $garment = Garment::find($track->garment_id);
@@ -417,33 +419,18 @@ class EnrollController extends Controller
 
         Mail::to($runner->mail)->send(new Welcome($app, $event, $engine, $track, $runner, $code, $transaction, $gateway, $range, $category, $size, $garment));
 
-        return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $encrypted_runner_id . '/manifest');
+        return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $ticket . '/' . $encrypted_runner_id . '/manifest');
 
-//        return view('mails.welcome')->with([
-//            'app' => $app,
-//            'event' => $event,
-//            'engine' => $engine,
-//            'track' => $track,
-//            'runner' => $runner,
-//            'code' => $code,
-//            'transaction' => $transaction,
-//            'gateway' => $gateway,
-//            'range' => $range,
-//            'category' => $category,
-//            'size' => $size,
-//            'garment' => $garment,
-//            'options' => $options
-//        ]); // Mail dummy
     }
 
 
-    public function manifest($prefix, $engine_id, $track_id, $encrypted_runner_id)
+    public function manifest($prefix, $engine_id, $track_id, $ticket, $encrypted_runner_id)
     {
         $event = Event::where('prefix', $prefix)->first();
         $engine = Engine::find($engine_id);
         $track = Track::find($track_id);
         $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
-        $options = $runner->tracks()->find($track->id)->pivot;
+        $options = $runner->tracks()->wherePivot('ticket', $ticket)->wherePivot('track_id', $track->id)->first()->pivot;
         $app = Application::find(1);
         $category = Category::find($options->category_id);
         $size = Size::find($options->size_id);
@@ -493,6 +480,7 @@ class EnrollController extends Controller
         $doc_num = $request->get('doc_num');
         $mail = $request->get('mail');
         $found_track = null;
+        $ticket = 0;
 
         $runners = Runner::where([['doc_num', $doc_num], ['mail', $mail]]);
 
@@ -506,6 +494,7 @@ class EnrollController extends Controller
             foreach ($runner->tracks as $track) {
                 if ($track->engine->event_id == $event->id && $track->pivot->enrolled == true) {
                     $found_track = $track;
+                    $ticket = $track->pivot->ticket;
                 }
             }
         }
@@ -522,7 +511,7 @@ class EnrollController extends Controller
 
         $encrypted_runner_id = Crypt::encrypt($runner->id);
 
-        return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $encrypted_runner_id . '/manifest');
+        return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $ticket . '/' . $encrypted_runner_id . '/manifest');
     }
 
 

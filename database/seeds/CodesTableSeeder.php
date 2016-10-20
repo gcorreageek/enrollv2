@@ -11,25 +11,25 @@ class CodesTableSeeder extends Seeder
      */
     public function run()
     {
-//        DB::table('codes')->insert([
-//            'track_id' => 1,
-//            'range_id' => 1,
-//            'code' => 'AAAAAAAA',
-//            'redeemed' => false,
-//            'locked' => false,
-//            'created_at' => \Carbon\Carbon::now(),
-//            'updated_at' => \Carbon\Carbon::now(),
-//        ]);
-//
-//        DB::table('codes')->insert([
-//            'track_id' => 1,
-//            'range_id' => 2,
-//            'code' => 'BBBBBBBB',
-//            'redeemed' => false,
-//            'locked' => false,
-//            'created_at' => \Carbon\Carbon::now(),
-//            'updated_at' => \Carbon\Carbon::now(),
-//        ]);
+        DB::table('codes')->insert([
+            'track_id' => 3,
+            'range_id' => 4,
+            'code' => 'AAAAAAAA',
+            'redeemed' => false,
+            'locked' => false,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('codes')->insert([
+            'track_id' => 4,
+            'range_id' => 4,
+            'code' => 'BBBBBBBB',
+            'redeemed' => false,
+            'locked' => false,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
 //
 //        DB::table('codes')->insert([
 //            'track_id' => 2,

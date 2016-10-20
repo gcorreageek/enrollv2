@@ -27,11 +27,11 @@ Route::get('{prefix}/{engine_id}/runner', 'EnrollController@runner');
 Route::post('{prefix}/{engine_id}/persist_runner', 'EnrollController@persistRunner');
 
 
-Route::get('{prefix}/{engine_id}/{track_id}/{encrypted_runner_id}/options', 'EnrollController@options');
-Route::post('{prefix}/{engine_id}/{track_id}/{encrypted_runner_id}/persist_options', 'EnrollController@persistOptions');
+Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/options', 'EnrollController@options');
+Route::post('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/persist_options', 'EnrollController@persistOptions');
 Route::post('{prefix}/{engine_id}/{track_id}/{runner_id}/{transaction_id}/response', 'EnrollController@response');
-Route::get('{prefix}/{engine_id}/{track_id}/{encrypted_runner_id}/subscribe', 'EnrollController@subscribe');
-Route::get('{prefix}/{engine_id}/{track_id}/{encrypted_runner_id}/manifest', 'EnrollController@manifest');
+Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/subscribe', 'EnrollController@subscribe');
+Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/manifest', 'EnrollController@manifest');
 Route::get('{prefix}/{engine_id}/{track_id}/{encrypted_runner_id}/manifest/docs/pdf', 'EnrollController@pdf');
 
 

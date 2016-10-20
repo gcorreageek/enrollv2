@@ -17,7 +17,7 @@
 
     <div class="col-lg-6 col-lg-offset-3">
 
-        {!! Form::open(['url' => $prefix . '/' . $engine->id . '/' . $track->id . '/' . Crypt::encrypt($runner->id) . '/persist_options']) !!}
+        {!! Form::open(['url' => $prefix . '/' . $engine->id . '/' . $track->id . '/' . $ticket . '/' . Crypt::encrypt($runner->id) . '/persist_options']) !!}
 
         @if($track->custom_bib == true)
             <div class="form-group">
@@ -75,7 +75,7 @@
 
                     <div class="form-group col-xs-6 minute_selector_container">
                         {!! Form::label('minute_goal', 'Minutos:', ['class' => 'sr-only']) !!}
-                        {!! Form::select('minute_goal', ['0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'], null, ['class' => 'form-control time_component minute', 'placeholder' => 'Minutos'])!!}
+                        {!! Form::select('minute_goal', ['0' => '0', '5' => '5', '10' => '10', '15' => '15', '20' => '20', '25' => '25', '30' => '30', '35' => '35', '40' => '40', '45' => '45', '50' => '50', '55' => '55'], null, ['class' => 'form-control time_component minute', 'placeholder' => 'Minutos'])!!}
                         {!! Form::hidden('second_goal', '0', ['class' => 'form-control']) !!}
                     </div>
 
@@ -149,9 +149,10 @@
 
         {!! Form::hidden('runner', $runner->id, ['class' => 'form-control']) !!}
         {!! Form::hidden('track', $track->id, ['class' => 'form-control']) !!}
-        {{--{!! Form::hidden('pay', $pay, ['class' => 'form-control']) !!}--}}
-        {!! Form::hidden('code', $code->id, ['class' => 'form-control']) !!}
-        {!! Form::hidden('gateway', $gateway->id, ['class' => 'form-control']) !!}
+        {{--{!! Form::hidden('ticket', $ticket, ['class' => 'form-control']) !!}--}}
+        {{--{!! Form::hidden('transaction_id', $transaction->id, ['class' => 'form-control']) !!}--}}
+        {{--{!! Form::hidden('code', $code->id, ['class' => 'form-control']) !!}--}}
+        {{--{!! Form::hidden('gateway', $gateway->id, ['class' => 'form-control']) !!}--}}
         {!! Form::hidden('form', 'options', ['class' => 'form-control']) !!}
 
         <div class="form-group">{!! Form::submit('Continuar', ['class' => 'form-control btn btn-primary']) !!}</div>

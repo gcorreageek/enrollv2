@@ -29,7 +29,7 @@ class EnginesTableSeeder extends Seeder
             'event_id' => 2,
             'name' => 'Default',
             'enabled' => true,
-            'codes_enabled' => false,
+            'codes_enabled' => true,
             'coupons_enabled' => false,
             'assign_method' => 'onAge',
             'delegate_pickup' => true,
