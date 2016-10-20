@@ -130,6 +130,7 @@
         @endif
         {!! Form::hidden('pay', $pay, ['class' => 'form-control']) !!}
         {!! Form::hidden('code_id', $code->id, ['class' => 'form-control']) !!}
+        {!! Form::hidden('code', old('code'), ['class' => 'form-control']) !!}
         {!! Form::hidden('gateway', $gateway->id, ['class' => 'form-control']) !!}
         {!! Form::hidden('form', 'runner', ['class' => 'form-control']) !!}
 
