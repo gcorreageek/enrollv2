@@ -91,7 +91,7 @@ class Track extends Model
                 $category = $this->categories()->where([['min', '>=', $year], ['max', '<=', $year]])->first();
             }
         }else{
-            if ($this->categories()->where([['min', '<=', $age], ['max', '>=', $age]])->count()) {
+            if ($this->categories()->where([['min', '<=', $age], ['max', '>=', $age]])->count() > 1) {
                 $category = $this->categories()->where([['min', '<=', $age], ['max', '>=', $age], ['range_id', $range_id]])->first();
             } else {
                 $category = $this->categories()->where([['min', '<=', $age], ['max', '>=', $age]])->first();
