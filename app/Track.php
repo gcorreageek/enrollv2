@@ -82,12 +82,20 @@ class Track extends Model
     }
 
 
-    public function assignCategory($age, $year)
+    public function assignCategory($age, $year, $range_id)
     {
         if($this->engine->assign_method == 'onYear'){
-            $category = $this->categories()->where([['min', '>', $year], ['max', '<', $year]])->first();
+            if ($this->categories()->where([['min', '>=', $year], ['max', '<=', $year]])->count() > 1) {
+                $category = $this->categories()->where([['min', '>=', $year], ['max', '<=', $year], ['range_id', $range_id]])->first();
+            } else {
+                $category = $this->categories()->where([['min', '>=', $year], ['max', '<=', $year]])->first();
+            }
         }else{
-            $category = $this->categories()->where([['min', '<=', $age], ['max', '>=', $age]])->first();
+            if ($this->categories()->where([['min', '<=', $age], ['max', '>=', $age]])->count()) {
+                $category = $this->categories()->where([['min', '<=', $age], ['max', '>=', $age], ['range_id', $range_id]])->first();
+            } else {
+                $category = $this->categories()->where([['min', '<=', $age], ['max', '>=', $age]])->first();
+            }
         }
         return $category;
     }

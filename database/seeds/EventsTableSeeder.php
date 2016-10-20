@@ -70,5 +70,34 @@ class EventsTableSeeder extends Seeder
             'updated_at' => \Carbon\Carbon::now(),
         ]);
 
+        DB::table('events')->insert([
+            'application_id' => 1,
+            'prefix' => '161106_yura',
+            'pre' => 'La Maratón',
+            'name' => 'Yura 50 Años',
+            'owner' => 'Yura S.A.',
+            'city' => 'Arequipa',
+            'date' => \Carbon\Carbon::createFromDate(2016, 11, 06),
+            'enabled' => true,
+            'closed' => false,
+            'maintenance' => false,
+            'test_mode' => true,
+            'subscription_open' => '2016-10-01 09:00:00',
+            'subscription_close' => '2017-05-14 18:00:00',
+            'lock_lapse' => 120,
+            'url_event' => 'http://www.lima42k.com',
+            'url_disclaimer' => 'http://lima42k.com/disclaimer',
+            'url_privacy' => null,
+            'url_parental' => null,
+            'url_rules' => 'http://www.lima42k.com/informacion/reglamento',
+            'url_codes' => 'http://www.lima42k.com',
+            'url_expo' => 'http://www.lima42k.com/informacion/expo',
+            'default_location' => 'pe,ARE',
+            'quota_modifier' => 0,
+            'quota_fixed' => 0,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
     }
 }

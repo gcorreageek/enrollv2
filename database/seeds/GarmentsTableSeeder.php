@@ -34,5 +34,13 @@ class GarmentsTableSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
+
+        DB::table('garments')->insert([
+            'name' => 'Polo Maratón Yura',
+            'description' => null,
+            'threshold' => 30,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
     }
 }

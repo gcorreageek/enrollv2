@@ -90,5 +90,23 @@ class RatesTableSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
+
+
+
+        DB::table('rates')->insert([
+            'track_id' => 5,
+            'price' => 10,
+            'start' => \Carbon\Carbon::createFromDate(2016, 10, 18),
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('rates')->insert([
+            'track_id' => 6,
+            'price' => 10,
+            'start' => \Carbon\Carbon::createFromDate(2016, 10, 18),
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
     }
 }

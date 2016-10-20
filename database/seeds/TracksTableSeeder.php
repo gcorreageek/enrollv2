@@ -71,5 +71,35 @@ class TracksTableSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
+
+        DB::table('tracks')->insert([
+            'engine_id' => 3,
+            'name' => 'Carrera 9K',
+            'slug' => '9K',
+            'distance' => 9,
+            'time' => \Carbon\Carbon::createFromTime(7, 30, 0),
+            'gender' => null,
+            'garment_id' => 4,
+            'custom_bib' => false,
+            'starting_corrals' => false,
+            'description' => null,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('tracks')->insert([
+            'engine_id' => 3,
+            'name' => 'Carrera 5K',
+            'slug' => '5K',
+            'distance' => 5,
+            'time' => \Carbon\Carbon::createFromTime(7, 30, 0),
+            'gender' => null,
+            'garment_id' => 4,
+            'custom_bib' => false,
+            'starting_corrals' => false,
+            'description' => null,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
     }
 }

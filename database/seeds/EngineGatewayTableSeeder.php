@@ -53,5 +53,26 @@ class EngineGatewayTableSeeder extends Seeder
             'updated_at' => \Carbon\Carbon::now(),
         ]);
 
+        DB::table('engine_gateway')->insert([
+            'engine_id' => 3,
+            'gateway_id' => 1,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('engine_gateway')->insert([
+            'engine_id' => 3,
+            'gateway_id' => 2,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('engine_gateway')->insert([
+            'engine_id' => 3,
+            'gateway_id' => 3,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
     }
 }

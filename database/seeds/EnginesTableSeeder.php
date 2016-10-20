@@ -38,5 +38,19 @@ class EnginesTableSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
+
+        DB::table('engines')->insert([
+            'event_id' => 3,
+            'name' => 'Default',
+            'enabled' => true,
+            'codes_enabled' => true,
+            'coupons_enabled' => false,
+            'assign_method' => 'onYear',
+            'delegate_pickup' => true,
+            'event_change' => 'notAllowed',
+            'description' => null,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
     }
 }

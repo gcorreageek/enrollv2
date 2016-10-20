@@ -39,5 +39,26 @@ class RangesTableSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
+
+        DB::table('ranges')->insert([
+            'engine_id' => 3,
+            'name' => 'Interno',
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('ranges')->insert([
+            'engine_id' => 3,
+            'name' => 'Externo',
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('ranges')->insert([
+            'engine_id' => 3,
+            'name' => 'Junior',
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
     }
 }

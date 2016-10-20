@@ -408,7 +408,7 @@ class EnrollController extends Controller
             $bib = $track->generateBib($range);
         }
 
-        $category = $track->assignCategory($event->date->diffInYears($runner->dob), $runner->dob->year);
+        $category = $track->assignCategory($event->date->diffInYears($runner->dob), $runner->dob->year, $range->id);
 
         DB::update("UPDATE runner_track SET enrolled = true, bib = :bib, category_id = :category_id WHERE ticket = :ticket AND track_id = :track_id", ['bib' => $bib, 'category_id' => $category->id, 'ticket' => $ticket, 'track_id' => $track->id]);
 

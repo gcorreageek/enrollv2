@@ -232,5 +232,68 @@ class GarmentSizeTableSeeder extends Seeder
             'updated_at' => \Carbon\Carbon::now(),
         ]);
 
+
+
+
+        DB::table('garment_size')->insert([
+            'garment_id' => 4,
+            'size_id' => 6,
+            'gender' => 'M',
+            'stock' => 99999,
+            'spent' => 0,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('garment_size')->insert([
+            'garment_id' => 4,
+            'size_id' => 6,
+            'gender' => 'F',
+            'stock' => 99999,
+            'spent' => 0,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('garment_size')->insert([
+            'garment_id' => 4,
+            'size_id' => 7,
+            'gender' => 'M',
+            'stock' => 99999,
+            'spent' => 0,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('garment_size')->insert([
+            'garment_id' => 4,
+            'size_id' => 7,
+            'gender' => 'F',
+            'stock' => 99999,
+            'spent' => 0,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('garment_size')->insert([
+            'garment_id' => 4,
+            'size_id' => 8,
+            'gender' => 'M',
+            'stock' => 99999,
+            'spent' => 0,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('garment_size')->insert([
+            'garment_id' => 4,
+            'size_id' => 8,
+            'gender' => 'F',
+            'stock' => 99999,
+            'spent' => 0,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
     }
 }

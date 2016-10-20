@@ -107,5 +107,65 @@ class RangeTrackTableSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
+
+        DB::table('range_track')->insert([
+            'range_id' => 5,
+            'track_id' => 5,
+            'quota' => 100,
+            'count' => 0,
+            'first' => 3001,
+            'last' => 0,
+            'default' => 0,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('range_track')->insert([
+            'range_id' => 6,
+            'track_id' => 5,
+            'quota' => 250,
+            'count' => 0,
+            'first' => 2001,
+            'last' => 0,
+            'default' => 1,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('range_track')->insert([
+            'range_id' => 5,
+            'track_id' => 6,
+            'quota' => 150,
+            'count' => 0,
+            'first' => 1001,
+            'last' => 0,
+            'default' => 0,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('range_track')->insert([
+            'range_id' => 6,
+            'track_id' => 6,
+            'quota' => 400,
+            'count' => 0,
+            'first' => 301,
+            'last' => 0,
+            'default' => 1,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+        DB::table('range_track')->insert([
+            'range_id' => 7,
+            'track_id' => 6,
+            'quota' => 300,
+            'count' => 0,
+            'first' => 1,
+            'last' => 0,
+            'default' => 0,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
     }
 }
