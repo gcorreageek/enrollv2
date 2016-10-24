@@ -49,7 +49,7 @@
 @section("script")
     <script>
         $('#pdfButton').on("click", function () {
-            window.location = "{{ url($event->prefix . '/' . $engine->id . '/' . $track->id . '/' . $encrypted_runner_id . '/manifest/docs/pdf') }}";
+            window.location = "{{ url($event->prefix . '/' . $engine->id . '/' . $track->id . '/' . $options->ticket . '/' . $encrypted_runner_id . '/manifest/docs/pdf') }}";
         });
         $('#newButton').on("click", function () {
             window.location = "{{ url($event->prefix) }}";

@@ -515,7 +515,7 @@ class EnrollController extends Controller
     }
 
 
-    public function pdf($prefix, $engine_id, $track_id, $encrypted_runner_id)
+    public function pdf($prefix, $engine_id, $track_id, $ticket, $encrypted_runner_id)
     {
 
         $decrypted_runner_id = Crypt::decrypt($encrypted_runner_id);
@@ -524,7 +524,7 @@ class EnrollController extends Controller
         $engine = Engine::find($engine_id);
         $track = Track::find($track_id);
         $runner = Runner::find($decrypted_runner_id);
-        $options = $runner->tracks()->find($track->id)->pivot;
+        $options = $runner->tracks()->wherePivot('ticket', $ticket)->wherePivot('track_id', $track->id)->first()->pivot;
         $app = Application::find(1);
         $size = Size::find($options->size_id);
         $category = Category::find($options->category_id);

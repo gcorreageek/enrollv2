@@ -32,7 +32,7 @@ Route::post('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/pers
 Route::post('{prefix}/{engine_id}/{track_id}/{runner_id}/{transaction_id}/response', 'EnrollController@response');
 Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/subscribe', 'EnrollController@subscribe');
 Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/manifest', 'EnrollController@manifest');
-Route::get('{prefix}/{engine_id}/{track_id}/{encrypted_runner_id}/manifest/docs/pdf', 'EnrollController@pdf');
+Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/manifest/docs/pdf', 'EnrollController@pdf');
 
 
 Route::get('{prefix}/docs/privacy', 'EnrollController@privacy');
