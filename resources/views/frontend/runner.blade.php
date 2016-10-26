@@ -151,15 +151,24 @@
         var province = '{{ $defaultProvince }}}';
 
         if($('#province').val() != 'LIM'){
+            $('#city').prop("selectedIndex", 0);
             $('#city').prop('disabled', true);
         }
 
         if($('#state').val() != 'LIM'){
+            $('#province').prop("selectedIndex", 0);
             $('#province').prop('disabled', true);
+            $('#city').prop("selectedIndex", 0);
+            $('#city').prop('disabled', true);
         }
 
         if($('#country').val() != 'pe'){
+            $('#state').prop("selectedIndex", 0);
             $('#state').prop('disabled', true);
+            $('#province').prop("selectedIndex", 0);
+            $('#province').prop('disabled', true);
+            $('#city').prop("selectedIndex", 0);
+            $('#city').prop('disabled', true);
         }
 
 
