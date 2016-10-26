@@ -10,7 +10,8 @@
         "barryvdh/laravel-ide-helper": "v2.2.1",
         "doctrine/dbal": "v2.5.5",
         "laravelcollective/html": "v5.3.0",
-        "barryvdh/laravel-dompdf": "v0.7.0"
+        "barryvdh/laravel-dompdf": "v0.7.0",
+        "league/csv": "8.1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

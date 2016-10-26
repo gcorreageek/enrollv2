@@ -46,3 +46,7 @@ Route::get('{prefix}/error', 'EnrollController@error');
 
 
 
+
+
+Route::any('admin/{prefix}/export', 'EventController@exportRunners');
+
