@@ -417,7 +417,12 @@ class EnrollController extends Controller
         $spent = $garment->sizes()->wherePivot('gender', $runner->gender)->find($size->id)->pivot->spent;
         $garment->sizes()->wherePivot('gender', $runner->gender)->updateExistingPivot($size->id, ['spent' => $spent + 1]);
 
-        Mail::to($runner->mail)->send(new Welcome($app, $event, $engine, $track, $runner, $code, $transaction, $gateway, $range, $category, $size, $garment));
+        try {
+            Mail::to($runner->mail)->send(new Welcome($app, $event, $engine, $track, $runner, $code, $transaction, $gateway, $range, $category, $size, $garment));
+        } catch (\Exception $e){
+            $a = $e;
+        }
+
 
         return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $ticket . '/' . $encrypted_runner_id . '/manifest');
 
