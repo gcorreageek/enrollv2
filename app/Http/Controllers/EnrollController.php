@@ -410,6 +410,8 @@ class EnrollController extends Controller
 
         $category = $track->assignCategory($event->date->diffInYears($runner->dob), $runner->dob->year, $range->id);
 
+        dd($range->id);
+
         DB::update("UPDATE runner_track SET enrolled = true, bib = :bib, category_id = :category_id WHERE ticket = :ticket AND track_id = :track_id", ['bib' => $bib, 'category_id' => $category->id, 'ticket' => $ticket, 'track_id' => $track->id]);
 
         $size = Size::find($options->size_id);

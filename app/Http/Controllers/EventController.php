@@ -97,7 +97,7 @@ class EventController extends Controller
 
         if($request->has('format')){
             $where_tracks = implode(',', $event->tracks->pluck('id')->toArray());
-            $runners = DB::select('select a.id, a.name_last, a.name_first, a.gender, a.dob, a.doc_type, a.doc_num, a.mail, a.telephone, a.mobile, a.country, a.state, a.province, a.city, c.slug, b.enrolled, b.bib, e.code, b.transaction_id, CONCAT(d.min, " - ", d.max) as cat, f.name_short, b.nickname, b.time_goal, b.time_best, b.event_name, b.event_url, b.relative_relationship, b.relative_name, b.relative_phone, b.comment from runner_track b inner join runners a on a.id = b.runner_id INNER JOIN tracks c on b.track_id = c.id INNER JOIN categories d ON b.category_id = d.id INNER JOIN sizes f ON b.size_id = f.id LEFT JOIN codes e ON b.code_id = e.id where b.track_id IN (' . $where_tracks . ') and b.enrolled = 1');
+            $runners = DB::select('select a.id, a.name_last, a.name_first, a.gender, a.dob, a.doc_type, a.doc_num, a.mail, a.telephone, a.mobile, a.country, a.state, a.province, a.city, c.slug, b.enrolled, b.bib, e.code, b.transaction_id, CONCAT(d.min, " - ", d.max) as cat, f.name_short, b.nickname, b.time_goal, b.time_best, b.event_name, b.event_url, b.relative_relationship, b.relative_name, b.relative_phone, b.comment, b.created_at, b.updated_at from runner_track b inner join runners a on a.id = b.runner_id INNER JOIN tracks c on b.track_id = c.id INNER JOIN categories d ON b.category_id = d.id INNER JOIN sizes f ON b.size_id = f.id LEFT JOIN codes e ON b.code_id = e.id where b.track_id IN (' . $where_tracks . ') and b.enrolled = 1');
             $csv = Writer::createFromFileObject(new \SplTempFileObject());
 
             if($request->get('format') == 'excel_win') {
@@ -105,7 +105,7 @@ class EventController extends Controller
                 $csv->setOutputBOM(Writer::BOM_UTF8);
             }
 
-            $csv->insertOne(['id', 'name_last', 'name_first', 'gender', 'dob', 'doc_type', 'doc_num', 'mail', 'telephone', 'mobile', 'country', 'state', 'province', 'city', 'track', 'enrolled', 'bib', 'code', 'transaction', 'category', 'size', 'nickname', 'time_goal', 'time_best', 'event', 'url', 'relative_type', 'relative_name', 'relative_phone', 'comment']);
+            $csv->insertOne(['id', 'name_last', 'name_first', 'gender', 'dob', 'doc_type', 'doc_num', 'mail', 'telephone', 'mobile', 'country', 'state', 'province', 'city', 'track', 'enrolled', 'bib', 'code', 'transaction', 'category', 'size', 'nickname', 'time_goal', 'time_best', 'event', 'url', 'relative_type', 'relative_name', 'relative_phone', 'comment', 'created', 'updated']);
 
             foreach ($runners as $runner) {
                 $csv->insertOne(json_decode(json_encode($runner), true));
