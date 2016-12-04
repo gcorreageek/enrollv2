@@ -306,8 +306,8 @@ class EnrollController extends Controller
         $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
         $options = $runner->tracks()->wherePivot('ticket', $ticket)->wherePivot('track_id', $track->id)->first()->pivot;
 
-        $time_goal = Carbon::createFromTime($request->get('hour_goal'), $request->get('minute_goal'), $request->get('second_goal'));
-        $time_best = Carbon::createFromTime($request->get('hour_best'), $request->get('minute_best'), $request->get('second_best'));
+        $time_goal = Carbon::createFromTime((int) $request->get('hour_goal'), (int) $request->get('minute_goal'), (int) $request->get('second_goal'));
+        $time_best = Carbon::createFromTime((int) $request->get('hour_best'), (int) $request->get('minute_best'), (int) $request->get('second_best'));
 
         $pivot = [
             'ticket' => $ticket,
