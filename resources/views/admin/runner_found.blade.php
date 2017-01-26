@@ -3,20 +3,18 @@
 @section('content')
 
 
-    <div class="col-md-2">Apellidos</div>
-    <div class="col-md-2">Nombres</div>
+    <div class="col-md-5">Nombre Completo</div>
     <div class="col-md-2">Documento</div>
     <div class="col-md-1">Género</div>
     <div class="col-md-2">Fecha Nac.</div>
-    <div class="col-md-3">Opciones</div>
+    <div class="col-md-2">Opciones</div>
 
 @foreach($runners as $runner)
-    <div class="col-md-2">{{ $runner->name_last }}</div>
-    <div class="col-md-2">{{ $runner->name_first }}</div>
+    <div class="col-md-5">{{ ucwords(strtolower($runner->name_last)) }}, {{ ucwords(strtolower($runner->name_first)) }}</div>
     <div class="col-md-2">{{ $runner->doc_type }} {{ $runner->doc_num }}</div>
     <div class="col-md-1">{{ $runner->gender }}</div>
     <div class="col-md-2">{{ $runner->dob->format('d-m-Y') }}</div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <a href="{!! url('admin/runner/' . $runner->id) !!}">Ver</a>&nbsp;&nbsp;&nbsp;
         <a href="{!! url('admin/runner/' . $runner->id . '/edit') !!}">Editar</a>
     </div>
