@@ -17,7 +17,7 @@
 
     <div class="col-lg-6 col-lg-offset-3">
 
-        {!! Form::open(['url' => $prefix . '/' . $engine->id . '/' . $track->id . '/' . $ticket . '/' . Crypt::encrypt($runner->id) . '/persist_options']) !!}
+        {!! Form::model($options, ['url' => $prefix . '/' . $engine->id . '/' . $track->id . '/' . $ticket . '/' . Crypt::encrypt($runner->id) . '/persist_options']) !!}
 
         @if($track->custom_bib == true)
             <div class="form-group">
@@ -165,9 +165,30 @@
 
 
 @section("script")
-    {{--<script>--}}
-        {{--$('.dob_component').change(function () {--}}
-            {{--$('.dob').val($('.dob_month').val() + '/' + $('.dob_day').val() + '/' + $('.dob_year').val());--}}
-        {{--});--}}
-    {{--</script>--}}
+    @if($options->time_goal != '00:00:00')
+        <script>
+            var time_goal = '{{ $options->time_goal }}';
+            var hour_goal = Number(time_goal.substr(0, 2));
+            var minute_goal = Number(time_goal.substr(3, 2));
+            var second_goal = Number(time_goal.substr(6, 2));
+
+            $('#hour_goal').val(hour_goal);
+            $('#minute_goal').val(minute_goal);
+            $('#second_goal').val(second_goal);
+        </script>
+    @endif
+
+    @if($options->time_best != '00:00:00')
+        <script>
+            var time_best = '{{ $options->time_best }}';
+            var hour_best = Number(time_best.substr(0, 2));
+            var minute_best = Number(time_best.substr(3, 2));
+            var second_best = Number(time_best.substr(6, 2));
+
+            $('#hour_best').val(hour_best);
+            $('#minute_best').val(minute_best);
+            $('#second_best').val(second_best);
+        </script>
+    @endif
+
 @endsection

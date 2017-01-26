@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {{--<link rel="stylesheet" href="{{ url('css/app.css') }}">--}}
+    <link rel="stylesheet" href="{{ url('css/app.css') }}">
+    <link rel="stylesheet" href="{{ url('css/admin.css') }}">
     {{--<link rel="stylesheet" href="{{ url('css/color.css') }}">--}}
 
     {{--@if(File::exists(public_path('skins/' . $event->prefix . '/style.css')))--}}
@@ -46,7 +47,7 @@
 
 
 
-{{--<script src="{{ url('js/app.js') }}"></script>--}}
-{{--@yield("script")--}}
+<script src="{{ url('js/app.js') }}"></script>
+@yield("script")
 </body>
 </html>

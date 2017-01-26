@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Runner;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -47,7 +48,8 @@ class RunnerController extends Controller
      */
     public function show($id)
     {
-        //
+        $runner = Runner::find($id);
+        return view('admin.runner.show', ['runner' => $runner]);
     }
 
     /**
@@ -58,7 +60,8 @@ class RunnerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $runner = Runner::find($id);
+        return view('admin.runner.edit', ['runner' => $runner, 'edit_mode' => true]);
     }
 
     /**
@@ -70,7 +73,12 @@ class RunnerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $runner = Runner::find($id);
+        $runner->update($request->all());
+
+        $runner = Runner::find($id);
+
+        return view('admin.runner.show', ['runner' => $runner]);
     }
 
     /**

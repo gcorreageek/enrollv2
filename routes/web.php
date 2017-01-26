@@ -46,7 +46,11 @@ Route::get('{prefix}/error', 'EnrollController@error');
 
 
 
-
+Route::get('admin/runner_search', 'AdminController@runnerSearch');
+Route::post('admin/runner_found', 'AdminController@runnerFound');
+Route::get('admin/runner/{id}', 'RunnerController@show');
+Route::get('admin/runner/{id}/edit', 'RunnerController@edit');
+Route::post('admin/runner/{id}/update', 'RunnerController@update');
 
 Route::any('admin/{prefix}/export', 'EventController@exportRunners');
 

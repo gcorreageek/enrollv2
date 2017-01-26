@@ -192,6 +192,7 @@ class EnrollController extends Controller
             'defaultState' => $defaultLocation['state'],
             'defaultProvince' => $defaultLocation['province'],
             'runner' => $runner,
+            'edit_mode' => false,
         ]);
     }
 
@@ -253,23 +254,31 @@ class EnrollController extends Controller
         }
 
         if ($attachPivot == true) {
-            $track->runners()->attach($runner->id, [
-                'bib' => 0,
-                'ticket' => $ticket,
-                'code_id' => $code->id,
-                'transaction_id' => $transaction->id,
-                'category_id' => 0,
-                'size_id' => 0,
-                'nickname' => '',
-                'time_goal' => '00:00:00',
-                'time_best' => '00:00:00',
-                'event_name' => '',
-                'event_url' => '',
-                'relative_relationship' => '',
-                'relative_name' => '',
-                'relative_phone' => '',
-                'comment' => ''
-            ]);
+            if ($runner->tracks()->wherePivot('track_id', $track->id)->count() == 0) {
+                $track->runners()->attach($runner->id, [
+                    'bib' => 0,
+                    'ticket' => $ticket,
+                    'code_id' => $code->id,
+                    'transaction_id' => $transaction->id,
+                    'category_id' => 0,
+                    'size_id' => 0,
+                    'nickname' => '',
+                    'time_goal' => '00:00:00',
+                    'time_best' => '00:00:00',
+                    'event_name' => '',
+                    'event_url' => '',
+                    'relative_relationship' => '',
+                    'relative_name' => '',
+                    'relative_phone' => '',
+                    'comment' => ''
+                ]);
+            } else {
+                $track->runners()->updateExistingPivot($runner->id, [
+                    'ticket' => $ticket,
+                    'code_id' => $code->id,
+                    'transaction_id' => $transaction->id
+                ]);
+            }
         }
 
         $encrypted_runner_id = Crypt::encrypt($runner->id);
@@ -285,6 +294,7 @@ class EnrollController extends Controller
         $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
         $track = Track::find($track_id);
         $sizes = $track->garment->sizes()->wherePivot('gender', $runner->gender)->get();
+        $options = $runner->tracks()->wherePivot('track_id', $track->id)->first()->pivot;
 
         return view('frontend.options', [
             'prefix' => $prefix,
@@ -294,6 +304,7 @@ class EnrollController extends Controller
             'sizes' => $sizes,
             'event' => $event,
             'ticket' => $ticket,
+            'options' => $options,
         ]);
     }
 
@@ -304,7 +315,6 @@ class EnrollController extends Controller
         $engine = Engine::find($engine_id);
         $track = Track::find($track_id);
         $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
-        $options = $runner->tracks()->wherePivot('ticket', $ticket)->wherePivot('track_id', $track->id)->first()->pivot;
 
         $time_goal = Carbon::createFromTime((int) $request->get('hour_goal'), (int) $request->get('minute_goal'), (int) $request->get('second_goal'));
         $time_best = Carbon::createFromTime((int) $request->get('hour_best'), (int) $request->get('minute_best'), (int) $request->get('second_best'));
@@ -323,7 +333,8 @@ class EnrollController extends Controller
             'relative_phone' => $request->get('relative_phone'),
         ];
 
-        DB::update("UPDATE runner_track SET size_id = :size_id, nickname = :nickname, time_goal = :time_goal, time_best = :time_best, event_name = :event_name, event_url = :event_url, relative_relationship = :relative_relationship, relative_name = :relative_name, relative_phone = :relative_phone WHERE ticket = :ticket AND track_id = :track_id", $pivot);
+        $track->runners()->updateExistingPivot($runner->id, $pivot);
+        $options = $runner->tracks()->wherePivot('track_id', $track->id)->first()->pivot;
 
         if ($options->code_id > 0) {
             return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $ticket . '/' . $encrypted_runner_id . '/subscribe');
