@@ -41,7 +41,7 @@ class Engine extends Model
     {
         $availableTracks = collect();
         foreach ($this->tracks as $track){
-            $categorySafe = $track->categorySafe($age, $year);
+            $categorySafe = $track->categorySafe($age, $year, $gender);
             $genderSafe = $track->genderSafe($gender);
             if ($categorySafe == true && $genderSafe == true) {
                 $availableTracks->push($track);

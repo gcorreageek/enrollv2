@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Runner;
+use App\Track;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -30,6 +31,22 @@ class AdminController extends Controller
         } else {
             return view('admin.runner_found')->with('runners', $runners);
         }
+
+    }
+
+
+
+    public function newBib($runner_id, $track_id, $bib) {
+        $runner = Runner::find($runner_id);
+        $track = Track::find($track_id);
+        $range = $track->ranges()->where([['first', '<=', $bib], ['last', '>=', $bib]])->first();
+
+        $new_bib = $track->generateBib($range);
+
+        $runner->tracks()->updateExistingPivot($track->id, ['bib' => $new_bib]);
+
+        return redirect(url('admin/runner/' . $runner->id));
+
 
     }
 

@@ -136,7 +136,7 @@ class EnrollController extends Controller
             if ($safeTracks->count() == 0){
                 // ERROR: Engine is not safe for given dob and/or gender
                 return redirect($prefix . '/error')->with([
-                    'error' => 'Lo sentimos, su edad y/o año de nacimiento no le permiten participar en ninguna distancia de este evento.'
+                    'error' => 'Lo sentimos, su edad y/o año de nacimiento y/o género no le permiten participar en ninguna distancia de este evento.'
                 ]);
             }
         }

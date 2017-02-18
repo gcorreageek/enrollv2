@@ -52,5 +52,8 @@ Route::get('admin/runner/{id}', 'RunnerController@show');
 Route::get('admin/runner/{id}/edit', 'RunnerController@edit');
 Route::post('admin/runner/{id}/update', 'RunnerController@update');
 
+Route::get('admin/{runner_id}/{track_id}/{bib}/get_new_bib', 'AdminController@newBib');
+Route::get('admin/{runner_id}/{track_id}/{bib}/get_new_track', 'AdminController@newTrack');
+
 Route::any('admin/{prefix}/export', 'EventController@exportRunners');
 

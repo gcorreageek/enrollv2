@@ -125,6 +125,26 @@
         {!! Form::close() !!}
     </div>
 
+
+@foreach($runner->tracks as $track)
+    <div class="container"><div class="row">
+    <div class="col-lg-3 col-lg-offset-2">{{ $track->engine->event->name }} {{ $track->engine->event->date->year }}</div>
+    <div class="col-lg-2">{{ $track->name }}</div>
+    <div class="col-lg-1">{{ $track->pivot->bib }}</div>
+    <div class="col-lg-2"><a href="{!! url('admin/' . $runner->id . '/' . $track->id . '/' . $track->pivot->bib . '/get_new_bib') !!}">NEW BIB</a></div>
+    {{--<div><a href="#">Track</a></div>--}}
+    </div></div>
+@endforeach
+
+
+
+
+
+
+
+
+
+
 @endsection
 
 
