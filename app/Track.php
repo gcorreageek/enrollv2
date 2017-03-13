@@ -71,7 +71,7 @@ class Track extends Model
     }
 
 
-    public function categorySafe($age, $year, $gender)
+    public function categorySafe($age, $year)
     {
         if($this->engine->assign_method == 'onYear'){
             $categorySafe = $this->categories()->where([['min', '>=', $year], ['max', '<=', $year]])->get()->count() > 0;
