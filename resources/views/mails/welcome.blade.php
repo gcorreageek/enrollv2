@@ -10,7 +10,8 @@
 
 <style>
     #topbar{width: 100%; padding-top: 7px; font-family: sans-serif; height: 18px; text-align: center; font-size: 11px; color: #FFFFFF; background-color: #222222;}
-    #main_container{font-family: sans-serif; width: 100%; padding: 60px 0px 20px 0px; background: #222222 url("http://lima42k.com/images/2017/170521_lima42k_mail-background.jpg") no-repeat center top;}
+    /*#main_container{font-family: sans-serif; width: 100%; padding: 60px 0px 20px 0px; background: #222222 url("http://lima42k.com/images/2017/170521_lima42k_mail-background.jpg") no-repeat center top;}*/
+    #main_container{font-family: sans-serif; width: 100%; padding: 60px 0px 20px 0px; background: #222222 url("{{ url('skins/' . $event->prefix . '/mail_background.jpg') }}") no-repeat center top;}
     #mail_header{width: 760px; margin-bottom: 30px;}
     #mail_logo{text-align: left;}
     #mail_emblem{text-align: right;}
@@ -50,12 +51,12 @@
         <tr>
             <td id="mail_logo">
                 @if(File::exists(public_path('skins/' . $event->prefix . '/logo.png')))
-                    <img src="{{ url('skins/' . $event->prefix . '/logo.png') }}" width="200">
+                    <img src="{{ url('skins/' . $event->prefix . '/logo.png') }}" height="65">
                 @endif
             </td>
             <td id="mail_emblem">
                 @if(File::exists(public_path('skins/' . $event->prefix . '/emblem.png')))
-                    <img src="{{ url('skins/' . $event->prefix . '/emblem.png') }}">
+                    <img src="{{ url('skins/' . $event->prefix . '/emblem.png') }}" height="65">
                 @endif
             </td>
         </tr>
