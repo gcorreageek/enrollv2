@@ -1,6 +1,4 @@
-<p>&nbsp;</p>
-
-<h4>Bienvenido a {{ $event->pre }} {{ $event->name }} {{ $event->date->year }}</h4>
+<h2>Bienvenido a {{ $event->pre }} {{ $event->name }} {{ $event->date->year }}</h2>
 
 <p>Gracias por inscribirse, por favor conserve una copia de esta información como referencia
     y comprobante de su transacción así mismo sírvase presentar una copia al momento de recoger

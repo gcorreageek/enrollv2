@@ -1,84 +1,114 @@
-.border_top {
-  border-top: 1px dotted; }
+//.border_top {
+//  border-top: 1px dotted; }
+//
+//.border_right {
+//  border-right: 1px dotted; }
+//
+//.border_bottom {
+//  border-bottom: 1px dotted; }
+//
+//.border_left {
+//  border-left: 1px dotted; }
+//
+//
+//#mail_container {
+//  width: 760px;
+//  font-family: sans-serif !important;
+//  border: 1px solid slategray;
+//  background-color: #FFFFFF; }
+//
+//#mail_top_bar {
+//  height: 25px;
+//  text-align: center;
+//  font-size: 11px; }
+//
+//#mail_banner {
+//  height: 100px; }
+//
+//#mail_separator {
+//  height: 20px; }
+//
+//#mail_body {
+//  width: 520px;
+//  text-align: justify;
+//  padding: 0px 45px 30px 40px;
+//  font-size: 12px; }
+//
+//#mail_disclaimer {
+//  font-size: 10px;
+//  margin-top: 60px;
+//  text-align: justify; }
+//
+//#mail_ticket {
+//  width: 240px;
+//  padding-right: 25px;
+//  padding-left: 25px;
+//  font-size: 12px;
+//  padding-bottom: 30px; }
+//
+//.manifest_ticket_key {
+//  text-transform: uppercase;
+//  font-size: 8px;
+//  font-weight: bold; }
+//
+//.manifest_ticket_value {
+//  margin-bottom: 8px; }
+//
+//#mail_ribbon {
+//  height: 80px;
+//  width: 760px;
+//  font-size: 18px;
+//  text-align: center; }
+//
+//#mail_ribbon_bib, #ribbon_size {
+//  width: 30%; }
+//
+//#mail_ribbon_barcode {
+//  width: 40%; }
+//
+//#mail_ribbon_barcode img{
+//  width: 100%;
+//}
+//
+//#mail_footer {
+//  height: 100px;
+//  font-size: 10px;
+//  padding: 30px 50px 40px 50px;
+//  text-align: justify; }
+//
+//#mail_copyright {
+//  height: 30px;
+//  text-align: right;
+//  padding: 15px;
+//  font-size: 10px; }
+//
 
-.border_right {
-  border-right: 1px dotted; }
-
-.border_bottom {
-  border-bottom: 1px dotted; }
-
-.border_left {
-  border-left: 1px dotted; }
 
 
-#mail_container {
-  width: 760px;
-  font-family: sans-serif !important;
-  border: 1px solid slategray;
-  background-color: #FFFFFF; }
 
-#mail_top_bar {
-  height: 25px;
-  text-align: center;
-  font-size: 11px; }
+#topbar{width: 100%; padding-top: 7px; font-family: sans-serif; height: 18px; text-align: center; font-size: 11px; color: #FFFFFF; background-color: #222222;}
+#main_container{font-family: sans-serif; width: 100%; padding: 60px 0px 20px 0px; background: #222222 url("http://enroll.pacifictiming.com/skins/170521_lima42k/mail_background.jpg") no-repeat center top;}
+#mail_header{width: 760px; margin-bottom: 30px;}
+#mail_logo{text-align: left;}
+#mail_emblem{text-align: right;}
+#mail_container{width: 760px; background-color: rgba(255, 255, 255, 0.85);}
+#mail_separator{height: 20px;}
+#mail_body{width: 520px; text-align: justify; padding: 0px 45px 30px 40px; font-size: 12px;}
+#mail_disclaimer{font-size: 10px; margin-top: 60px; text-align: justify;}
+#mail_ticket{width: 240px; padding-right: 25px; padding-left: 25px; font-size: 12px; padding-bottom: 30px;}
+.manifest_ticket_key{text-transform: uppercase; font-size: 8px; font-weight: bold; color: #473192;}
+.manifest_ticket_value { margin-bottom: 8px;}
+#mail_ribbon{height: 80px; width: 760px; font-size: 18px; text-align: center;}
+#mail_ribbon_bib, #ribbon_size{width: 30%;}
+#mail_ribbon_barcode{width: 40%;}
+#mail_ribbon_barcode img{width: 100%;}
+#mail_footer{height: 100px; font-size: 10px; padding: 30px 50px 40px 50px; text-align: justify;}
+#mail_copyright{height: 30px; text-align: right; padding: 15px; font-size: 10px;}
 
-#mail_banner {
-  height: 100px; }
-
-#mail_separator {
-  height: 20px; }
-
-#mail_body {
-  width: 520px;
-  text-align: justify;
-  padding: 0px 45px 30px 40px;
-  font-size: 12px; }
-
-#mail_disclaimer {
-  font-size: 10px;
-  margin-top: 60px;
-  text-align: justify; }
-
-#mail_ticket {
-  width: 240px;
-  padding-right: 25px;
-  padding-left: 25px;
-  font-size: 12px;
-  padding-bottom: 30px; }
-
-.manifest_ticket_key {
-  text-transform: uppercase;
-  font-size: 8px;
-  font-weight: bold; }
-
-.manifest_ticket_value {
-  margin-bottom: 8px; }
-
-#mail_ribbon {
-  height: 80px;
-  width: 760px;
-  font-size: 18px;
-  text-align: center; }
-
-#mail_ribbon_bib, #ribbon_size {
-  width: 30%; }
-
-#mail_ribbon_barcode {
-  width: 40%; }
-
-#mail_ribbon_barcode img{
-  width: 100%;
-}
-
-#mail_footer {
-  height: 100px;
-  font-size: 10px;
-  padding: 30px 50px 40px 50px;
-  text-align: justify; }
-
-#mail_copyright {
-  height: 30px;
-  text-align: right;
-  padding: 15px;
-  font-size: 10px; }
-
+.border_top {border-top: 1px dotted #EE255C;}
+.border_right{border-right: 1px dotted #EE255C;}
+.border_bottom{border-bottom: 1px dotted #EE255C;}
+.border_left{border-left: 1px dotted #EE255C;}
+#mail_container h1, #mail_container h2, #mail_container h3, #mail_container h4, #mail_container h5, #mail_container h6{color: #EE255C !important;}
+#mail_container a{color: #473192;}
+#mail_container a:hover{color: #EE255C;}
