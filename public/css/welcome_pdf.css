@@ -1,0 +1,96 @@
+.border_top {
+  border-top: 1px dotted;
+}
+
+.border_right {
+  border-right: 1px dotted;
+}
+
+.border_bottom {
+  border-bottom: 1px dotted;
+}
+
+.border_left {
+  border-left: 1px dotted;
+}
+
+#pdf_body {
+  background-color: #FFFFFF !important;
+}
+
+.pdf_banner {
+  width: 18.6cm !important;
+}
+
+.pdf_container {
+  width: 100%;
+  font-family: sans-serif;
+  margin-top: 20px;
+}
+
+.pdf_body {
+  width: 70%;
+  vertical-align: top;
+  font-size: 12px;
+  padding: 0px 20px 30px 0px;
+}
+
+#pdf_disclaimer {
+  font-size: 9px;
+  text-align: justify;
+  margin-top: 40px;
+}
+
+.pdf_ticket {
+  padding: 0px 0px 30px 15px;
+  width: 30%;
+  vertical-align: top;
+  font-size: 12px;
+}
+
+.manifest_ticket_key {
+  text-transform: uppercase;
+  font-size: 8px;
+  font-weight: bold;
+}
+
+.manifest_ticket_value {
+  margin-bottom: 8px;
+}
+
+#pdf_ribbon {
+  height: 80px;
+  width: 100%;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#pdf_ribbon_bib, #pdf_ribbon_size {
+  width: 30%;
+  padding-bottom: 7px;
+}
+
+#pdf_ribbon_barcode {
+  width: 40%;
+}
+
+.pdf_barcode {
+  width: 5cm;
+  margin: 0px;
+  padding: 0px;
+}
+
+.pdf_footer {
+  height: 100px;
+  font-size: 10px;
+  padding: 20px 60px 20px 60px;
+  text-align: justify;
+}
+
+.pdf_copyright {
+  text-align: right;
+  font-size: 10px;
+}
+
+/*# sourceMappingURL=welcome_pdf.css.map */

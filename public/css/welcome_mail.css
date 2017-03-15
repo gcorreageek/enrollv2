@@ -1,71 +1,87 @@
 .border_top {
-  border-top: 1px dotted; }
+  border-top: 1px dotted;
+}
 
 .border_right {
-  border-right: 1px dotted; }
+  border-right: 1px dotted;
+}
 
 .border_bottom {
-  border-bottom: 1px dotted; }
+  border-bottom: 1px dotted;
+}
 
 .border_left {
-  border-left: 1px dotted; }
+  border-left: 1px dotted;
+}
 
 #mail_container {
   width: 760px;
   font-family: sans-serif !important;
   border: 1px solid slategray;
-  background-color: #FFFFFF; }
+  background-color: #FFFFFF;
+}
 
 #mail_top_bar {
   height: 25px;
   text-align: center;
-  font-size: 11px; }
+  font-size: 11px;
+}
 
 #mail_banner {
-  height: 100px; }
+  height: 100px;
+}
 
 #mail_separator {
-  height: 20px; }
+  height: 20px;
+}
 
 #mail_body {
   width: 520px;
   text-align: justify;
   padding: 0px 45px 30px 40px;
-  font-size: 12px; }
+  font-size: 12px;
+}
 
 #mail_disclaimer {
   font-size: 10px;
   margin-top: 60px;
-  text-align: justify; }
+  text-align: justify;
+}
 
 #mail_ticket {
   width: 240px;
   padding-right: 25px;
   padding-left: 25px;
   font-size: 12px;
-  padding-bottom: 30px; }
+  padding-bottom: 30px;
+}
 
 .manifest_ticket_key {
   text-transform: uppercase;
   font-size: 8px;
-  font-weight: bold; }
+  font-weight: bold;
+}
 
 .manifest_ticket_value {
-  margin-bottom: 8px; }
+  margin-bottom: 8px;
+}
 
 #mail_ribbon {
   height: 80px;
   width: 760px;
   font-size: 18px;
-  text-align: center; }
+  text-align: center;
+}
 
 #mail_ribbon_bib, #ribbon_size {
-  width: 30%; }
+  width: 30%;
+}
 
 #mail_ribbon_barcode {
-  width: 40%; }
+  width: 40%;
+}
 
-#mail_ribbon_barcode img{
+#mail_ribbon_barcode img {
   width: 100%;
 }
 
@@ -73,12 +89,14 @@
   height: 100px;
   font-size: 10px;
   padding: 30px 50px 40px 50px;
-  text-align: justify; }
+  text-align: justify;
+}
 
 #mail_copyright {
   height: 30px;
   text-align: right;
   padding: 15px;
-  font-size: 10px; }
+  font-size: 10px;
+}
 
-/*# sourceMappingURL=mail.css.map */
+/*# sourceMappingURL=welcome_mail.css.map */
