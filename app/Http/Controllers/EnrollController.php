@@ -415,6 +415,7 @@ class EnrollController extends Controller
             $transaction = Transaction::find($ticket);
             $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
             $response = authorization("dev", $transaction->gateway->store_id, $transactionToken, $transaction->gateway->key, $transaction->gateway->secret, $transaction->session_token);
+            $transaction->transaction_token = $transactionToken;
             $transaction->status = $response['data']['RESPUESTA'];
             $transaction->card_number = $response['data']['PAN'];
             $transaction->authorization_code = $response['data']['COD_AUTORIZA'];
