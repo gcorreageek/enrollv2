@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Runner extends Model
 {
+
     protected $dates = ['dob'];
 
 
@@ -49,6 +50,12 @@ class Runner extends Model
             'relative_phone',
             'comment'
         ])->withTimestamps();
+    }
+
+
+    public function values()
+    {
+        return $this->hasMany('App\Value');
     }
 
 
@@ -97,9 +104,6 @@ class Runner extends Model
 
         return $currentTrack;
     }
-
-
-
 
 
     static public function cleanDuplicates()

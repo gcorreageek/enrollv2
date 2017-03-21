@@ -147,6 +147,23 @@
         </div>
 
 
+
+
+        @if($track->fields->count() > 0)
+            @foreach($track->fields as $field)
+                @if($field->type == 'checkbox')
+                    <div class="checkbox">
+                        <label for="{{ $field->name }}">
+                            {!! Form::checkbox($field->name, null, $field->checked) !!}
+                            {!! $field->label !!}
+                        </label>
+                    </div>
+                @endif
+            @endforeach
+        @endif
+
+
+
         {!! Form::hidden('runner', $runner->id, ['class' => 'form-control']) !!}
         {!! Form::hidden('track', $track->id, ['class' => 'form-control']) !!}
         {{--{!! Form::hidden('ticket', $ticket, ['class' => 'form-control']) !!}--}}

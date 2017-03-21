@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Track extends Model
 {
+
     public function engine()
     {
         return $this->belongsTo('App\Engine');
@@ -71,12 +72,18 @@ class Track extends Model
     }
 
 
-    public function categorySafe($age, $year)
+    public function fields()
+    {
+        return $this->hasMany('App\Field');
+    }
+
+
+    public function categorySafe($age, $year, $gender)
     {
         if($this->engine->assign_method == 'onYear'){
-            $categorySafe = $this->categories()->where([['min', '>=', $year], ['max', '<=', $year]])->get()->count() > 0;
+            $categorySafe = $this->categories()->where([['min', '>=', $year], ['max', '<=', $year]])->whereIn('gender', [$gender, 'X'])->get()->count() > 0;
         }else{
-            $categorySafe = $this->categories()->where([['min', '<=', $age], ['max', '>=', $age]])->get()->count() > 0;
+            $categorySafe = $this->categories()->where([['min', '<=', $age], ['max', '>=', $age]])->whereIn('gender', [$gender, 'X'])->get()->count() > 0;
         }
         return $categorySafe;
     }
@@ -101,11 +108,11 @@ class Track extends Model
     }
 
 
-    public function genderSafe($gender)
-    {
-        $genderSafe = (is_null($this->gender) || $this->gender == $gender);
-        return $genderSafe;
-    }
+//    public function genderSafe($gender)
+//    {
+//        $genderSafe = (is_null($this->gender) || $this->gender == $gender);
+//        return $genderSafe;
+//    }
 
 
     public function generateBib($range)

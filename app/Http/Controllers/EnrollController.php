@@ -16,6 +16,7 @@ use App\Runner;
 use App\Size;
 use App\Track;
 use App\Transaction;
+use App\Value;
 use Carbon\Carbon;
 use Crypt;
 use Illuminate\Auth\Access\Gate;
@@ -107,13 +108,14 @@ class EnrollController extends Controller
                 $now = Carbon::now();
                 $unlockTime = $code->updated_at->addMinutes($event->lock_lapse);
                 if ($now->lt($unlockTime)) {
+                    // ERROR: Locked code
                     return redirect($prefix . '/error')->with([
                         'error' => 'Lo sentimos, el código ' . strtoupper($request->get('code')) . ' se encuentra temporalmente bloqueado debido a una inscripción no terminada, por favor intente nuevamente en aproximadamente ' . $event->lock_lapse . ' minutos.'
                     ]);
                 }
             }
             if ($code->track_id > 0) {
-                if ($code->track->categorySafe($age, $request->get('dob_year')) == false || $code->track->genderSafe($request->get('gender')) == false) {
+                if ($code->track->categorySafe($age, $request->get('dob_year'), $request->get('gender')) == false) {
                     // ERROR: Track is not safe for given dob and/or gender
                     return redirect($prefix . '/error')->with([
                         'error' => 'Lo sentimos, su edad y/o año de nacimiento no le permiten participar en la distancia vinculada al código ' . strtoupper($request->get('code')) . '.'
@@ -311,11 +313,31 @@ class EnrollController extends Controller
 
     public function persistOptions($prefix, $engine_id, $track_id, $ticket, $encrypted_runner_id, Requests\OptionsRequest $request)
     {
-        $event = Event::where('prefix', $prefix)->first();
-        $engine = Engine::find($engine_id);
         $track = Track::find($track_id);
         $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
 
+        if ($track->fields->count() > 0) {
+            foreach ($track->fields as $field) {
+                if ($field->required == true) {
+                    $rules = [$field->name => 'required'];
+                    $error = ['required' => $field->error_message];
+                    $this->validate($request, $rules, $error);
+                }
+                if ($field->persist == true) {
+                    $value = Value::where([['field_id', '=', $field->id], ['runner_id', '=', $runner->id]])->first();
+                    if (is_null($value)) {
+                        $value = new Value();
+                        $value->field_id = $field->id;
+                        $value->runner_id = $runner->id;
+                    }
+                    $value->value = $request->get($field->name);
+                    $value->save();
+                }
+            }
+        }
+
+        $event = Event::where('prefix', $prefix)->first();
+        $engine = Engine::find($engine_id);
         $time_goal = Carbon::createFromTime((int) $request->get('hour_goal'), (int) $request->get('minute_goal'), (int) $request->get('second_goal'));
         $time_best = Carbon::createFromTime((int) $request->get('hour_best'), (int) $request->get('minute_best'), (int) $request->get('second_best'));
 
@@ -341,20 +363,81 @@ class EnrollController extends Controller
         }
 
         if ($options->transaction_id > 0) {
-            $transaction = Transaction::find($options->transaction_id);
-            return view('frontend.pay')->with([
-                'event' => $event,
-                'engine' => $engine,
-                'track' => $track,
-                'runner' => $runner,
-                'transaction' => $transaction
-            ]);
+            return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $ticket . '/' . $encrypted_runner_id . '/checkout');
         }
 
         return redirect($prefix . '/error')->with([
             'error' => 'Lo sentimos, su inscripción no pudo ser completada.'
         ]);
 
+    }
+
+
+    public function checkoutPay($prefix, $engine_id, $track_id, $ticket, $encrypted_runner_id)
+    {
+        $event = Event::where('prefix', $prefix)->first();
+        $engine = Engine::find($engine_id);
+        $track = Track::find($track_id);
+        $transaction = Transaction::find($ticket);
+        $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
+        $sessionToken = '';
+        $sessionKey = '';
+
+        if ($transaction->gateway_id == 1) {
+            $sessionToken = getGUID();
+            $amount = $transaction->amount;
+            $sessionKey = create_token($amount, "dev", $transaction->gateway->store_id, $transaction->gateway->key, $transaction->gateway->secret, $sessionToken);
+            $transaction->session_token = $sessionToken;
+            $transaction->session_key = $sessionKey;
+            $transaction->save();
+        }
+
+        return view('frontend.checkout')->with([
+            'event' => $event,
+            'engine' => $engine,
+            'track' => $track,
+            'runner' => $runner,
+            'transaction' => $transaction,
+            'session_token' => $sessionToken,
+            'session_key' => $sessionKey,
+        ]);
+    }
+
+
+    public function checkoutResponse($prefix, $engine_id, $track_id, $ticket, $encrypted_runner_id)
+    {
+        $event = Event::where('prefix', $prefix)->first();
+
+        if (isset($_POST['transactionToken'])) {
+            $transactionToken = $_POST['transactionToken'];
+            $engine = Engine::find($engine_id);
+            $track = Track::find($track_id);
+            $transaction = Transaction::find($ticket);
+            $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
+            $response = authorization("dev", $transaction->gateway->store_id, $transactionToken, $transaction->gateway->key, $transaction->gateway->secret, $transaction->session_token);
+            $transaction->status = $response['data']['RESPUESTA'];
+            $transaction->card_number = $response['data']['PAN'];
+            $transaction->authorization_code = $response['data']['COD_AUTORIZA'];
+            $transaction->error = $response['data']['CODACCION'];
+            $transaction->hash = $response['data']['ETICKET'];
+            $transaction->message = $response['data']['DSC_COD_ACCION'];
+            $transaction->save();
+            if ($transaction->status == 1) {
+                return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $ticket . '/' . $encrypted_runner_id . '/subscribe');
+            } else {
+                return redirect($prefix . '/error')->with([
+                    'error' => 'Lo sentimos, la operación fue rechazada. Por favor comuníquese con su banco e intente nuevamente.'
+                ]);
+            }
+        } else {
+            return redirect($prefix . '/error')->with([
+                'error' => '
+                    Lo sentimos, la operación no pudo ser completada. 
+                    Por favor antes de intentar nuevamente, comuníquese con la línea de atención al participante 
+                    al teléfono ' . $event->application->support_telephone . ' (' . $event->application->support_availability . ') 
+                    o escriba un correo a <a href="' . $event->application->support_mail . '">' . $event->application->support_mail . '</a>.'
+            ]);
+        }
     }
 
 

@@ -29,6 +29,8 @@ Route::post('{prefix}/{engine_id}/persist_runner', 'EnrollController@persistRunn
 
 Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/options', 'EnrollController@options');
 Route::post('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/persist_options', 'EnrollController@persistOptions');
+Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/checkout', 'EnrollController@checkoutPay');
+Route::post('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/checkout', 'EnrollController@checkoutResponse');
 Route::post('{prefix}/{engine_id}/{track_id}/{runner_id}/{transaction_id}/response', 'EnrollController@response');
 Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/subscribe', 'EnrollController@subscribe');
 Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/manifest', 'EnrollController@manifest');
