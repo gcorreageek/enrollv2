@@ -383,14 +383,17 @@ class EnrollController extends Controller
         $sessionToken = '';
         $sessionKey = '';
 
-        if ($transaction->gateway_id == 1) {
-            $sessionToken = getGUID();
-            $amount = $transaction->amount;
-            $sessionKey = create_token($amount, "dev", $transaction->gateway->store_id, $transaction->gateway->key, $transaction->gateway->secret, $sessionToken);
-            $transaction->session_token = $sessionToken;
-            $transaction->session_key = $sessionKey;
-            $transaction->save();
+        if ($transaction->gateway->checkout == 'onSite') {
+            if ($transaction->gateway->id == 1) {
+                $sessionToken = getGUID();
+                $amount = $transaction->amount;
+                $sessionKey = create_token($amount, "dev", $transaction->gateway->store_id, $transaction->gateway->key, $transaction->gateway->secret, $sessionToken);
+                $transaction->session_token = $sessionToken;
+                $transaction->session_key = $sessionKey;
+                $transaction->save();
+            }
         }
+
 
         return view('frontend.checkout')->with([
             'event' => $event,
