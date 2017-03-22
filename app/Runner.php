@@ -53,6 +53,12 @@ class Runner extends Model
     }
 
 
+    public function transactions()
+    {
+        return $this->hasMany('App\Transaction');
+    }
+
+
     public function values()
     {
         return $this->hasMany('App\Value');

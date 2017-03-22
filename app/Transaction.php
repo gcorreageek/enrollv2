@@ -21,6 +21,11 @@ class Transaction extends Model
         return $this->hasOne('App\Coupon');
     }
 
+    public function runner()
+    {
+        return $this->belongsTo('App\Runner');
+    }
+
 
     static public function makeDummy()
     {

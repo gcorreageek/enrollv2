@@ -241,6 +241,7 @@ class EnrollController extends Controller
 
             $transaction = new Transaction;
             $transaction->gateway_id = $gateway->id;
+            $transaction->runner_id = $runner->id;
             $transaction->track_id = $track->id;
             $transaction->price = $rate->price;
             $transaction->coupon_id = $coupon->id;
