@@ -12,11 +12,36 @@ class RunnerController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->has('criteria')) {
+            $criteria = $request->get('criteria');
+            $runners = Runner::where('doc_num', $criteria)->get();
+
+            if ($runners->count() == 0) {
+                $runners = Runner::where('name_last', 'like', $criteria . '%')->orderBy('name_last', 'asc')->get();
+            }
+
+            if ($runners->count() == 0) {
+                return view('admin.runner.index')->with([
+                    'message' => '<span class="text-danger">No se encontró ningún registro que coincida con el criterio de búsqueda.</span>'
+                ]);
+            } else {
+                return view('admin.runner.index')->with([
+                    'message' => '<span class="text-success">' . $runners->count() . ' registro(s) encontrados.</span>',
+                    'runners' => $runners
+                ]);
+            }
+        } else {
+            return view('admin.runner.index')->with([
+                'message' => 'Ingrese un valor para realizar una búsqueda.'
+            ]);
+        }
+
+        //return view('admin.runner.index');
     }
 
     /**

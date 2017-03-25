@@ -25,8 +25,6 @@ Route::get('{prefix}/{engine_id}/gateway', 'EnrollController@gateway');
 Route::post('{prefix}/{engine_id}/check', 'EnrollController@check');
 Route::get('{prefix}/{engine_id}/runner', 'EnrollController@runner');
 Route::post('{prefix}/{engine_id}/persist_runner', 'EnrollController@persistRunner');
-
-
 Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/options', 'EnrollController@options');
 Route::post('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/persist_options', 'EnrollController@persistOptions');
 Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/checkout', 'EnrollController@checkoutPay');
@@ -35,21 +33,26 @@ Route::post('{prefix}/{engine_id}/{track_id}/{runner_id}/{transaction_id}/respon
 Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/subscribe', 'EnrollController@subscribe');
 Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/manifest', 'EnrollController@manifest');
 Route::get('{prefix}/{engine_id}/{track_id}/{ticket}/{encrypted_runner_id}/manifest/docs/pdf', 'EnrollController@pdf');
-
-
 Route::get('{prefix}/docs/privacy', 'EnrollController@privacy');
 Route::get('{prefix}/docs/disclaimer', 'EnrollController@disclaimer');
 Route::get('{prefix}/docs/parental', 'EnrollController@parental');
-
-
 Route::get('{prefix}/verify', 'EnrollController@verify');
 Route::post('{prefix}/search', 'EnrollController@search');
 Route::get('{prefix}/error', 'EnrollController@error');
 
 
 
-Route::get('admin/runner_search', 'AdminController@runnerSearch');
-Route::post('admin/runner_found', 'AdminController@runnerFound');
+Route::get('webservice/insights/{event}', 'ServiceController@insights');
+
+
+
+
+
+
+
+//Route::get('admin/runner_search', 'AdminController@runnerSearch');
+//Route::post('admin/runner_found', 'AdminController@runnerFound');
+Route::any('admin/runner', 'RunnerController@index');
 Route::get('admin/runner/{id}', 'RunnerController@show');
 Route::get('admin/runner/{id}/edit', 'RunnerController@edit');
 Route::post('admin/runner/{id}/update', 'RunnerController@update');

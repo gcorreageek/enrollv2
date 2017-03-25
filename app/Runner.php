@@ -77,6 +77,18 @@ class Runner extends Model
     }
 
 
+    public function longGender()
+    {
+        if($this->gender == 'M') {
+            $verboseGender = 'Masculino';
+        } else {
+            $verboseGender = 'Femenino';
+        }
+
+        return $verboseGender;
+    }
+
+
     static public function makeDummy()
     {
         $runner = new self();

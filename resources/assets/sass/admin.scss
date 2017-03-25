@@ -7,3 +7,64 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+
+
+.container{
+  //width: auto;
+  //max-width: 900px;
+}
+
+.dob_day_selector_container, .hour_selector_container, .gender_container, .doc_type_container{
+  padding-left: 0 !important;
+}
+
+.dob_month_selector_container, .minute_selector_container{
+  padding: 0 !important;
+}
+
+.dob_year_selector_container, .second_selector_container, .dob_container, .doc_num_container{
+  padding-right: 0 !important;
+}
+
+
+html {
+  position: relative;
+  min-height: 100%;
+
+}
+
+
+#admin_top-bar{
+  color: #FFFFFF;
+  background-color: #000000;
+  font-size: smaller;
+  padding: 5px;
+}
+
+
+#admin_header{
+  min-height: 50px;
+  background-color: transparent;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+
+#admin_content{
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 40px;
+  margin-bottom: 60px;
+  margin-top: 10px;
+  min-height: 300px;
+}
+
+
+#admin_footer{
+  font-size: 0.7em;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 3px;
+}

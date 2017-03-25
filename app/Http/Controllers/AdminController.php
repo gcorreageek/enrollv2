@@ -13,7 +13,7 @@ class AdminController extends Controller
 
 
     public function runnerSearch() {
-        return view('admin.runner_search');
+        return view('admin.runners');
     }
 
 

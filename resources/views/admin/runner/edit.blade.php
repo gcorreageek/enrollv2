@@ -9,20 +9,21 @@
 
 @section("content")
 
+    <div class="row">
+        <div class="col-xs-12">
+            @include('frontend.partials.validation_errors')
+        </div>
 
-    <div class="col-xs-12">
-        @include('frontend.partials.validation_errors')
-    </div>
 
+        <div class="col-lg-6 col-lg-offset-3">
 
-    <div class="col-lg-6 col-lg-offset-3">
+            {!! Form::model($runner, ['url' => 'admin/runner/' . $runner->id . '/update']) !!}
+            @include('partials.runner_form')
+            <div class="form-group">{!! Form::submit('Continuar', ['class' => 'form-control btn btn-primary']) !!}</div>
+            <div class="form-group">{!! Form::button('Regresar', ['class' => 'form-control btn btn-danger cancel_button']) !!}</div>
+            {!! Form::close() !!}
 
-        {!! Form::model($runner, ['url' => 'admin/runner/' . $runner->id . '/update']) !!}
-        @include('partials.runner_form')
-        <div class="form-group">{!! Form::submit('Continuar', ['class' => 'form-control btn btn-primary']) !!}</div>
-        <div class="form-group">{!! Form::button('Regresar', ['class' => 'form-control btn btn-danger cancel_button']) !!}</div>
-        {!! Form::close() !!}
-
+        </div>
     </div>
 
 @endsection
