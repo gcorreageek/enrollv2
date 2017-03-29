@@ -29,6 +29,8 @@
         <div class="manifest_ticket_value">{{ $gateway->name }}</div>
         <div class="manifest_ticket_key color_accent">Transacción / Código</div>
         <div class="manifest_ticket_value">{{ $transaction->id }}</div>
+        <div class="manifest_ticket_key color_accent">Tarjeta</div>
+        <div class="manifest_ticket_value">{{ $transaction->card_number }}</div>
         <div class="manifest_ticket_key color_accent">Monto</div>
         <div class="manifest_ticket_value">PEN (S/.) {{ $transaction->amount }}</div>
         <div class="manifest_ticket_key color_accent">Fecha</div>
@@ -37,6 +39,10 @@
         @else
             <div class="manifest_ticket_value">{{ $transaction->gateway_datetime }}</div>
         @endif
+        <p>&nbsp;</p>
+        <div>
+            <a href="{!! url($event->prefix . '/' . $engine->id . '/' . $track->id . '/' . $transaction->id . '/' . $encrypted_runner_id . '/manifest/docs/voucher') !!}" target="_blank">Guardar Voucher</a>
+        </div>
     @endif
     @if($options->code_id > 0)
         <div class="manifest_ticket_value">Código de Inscripción</div>

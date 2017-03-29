@@ -669,6 +669,40 @@ class EnrollController extends Controller
     }
 
 
+    public function voucher($prefix, $engine_id, $track_id, $ticket, $encrypted_runner_id)
+    {
+        $decrypted_runner_id = Crypt::decrypt($encrypted_runner_id);
+
+        $event = Event::where('prefix', $prefix)->first();
+        $engine = Engine::find($engine_id);
+        $track = Track::find($track_id);
+        $runner = Runner::find($decrypted_runner_id);
+        $options = $runner->tracks()->wherePivot('ticket', $ticket)->wherePivot('track_id', $track->id)->first()->pivot;
+        $app = Application::find(1);
+        $size = Size::find($options->size_id);
+        $category = Category::find($options->category_id);
+        $code = Code::makeDummy();
+        $transaction = Transaction::find($ticket);
+        $gateway = Gateway::makeDummy();
+
+        $pdf = PDF::loadView('frontend.docs.voucher', [
+            'runner' => $runner,
+            'transaction' => $transaction,
+            'code' => $code,
+            'event' => $event,
+            'engine' => $engine,
+            'track' => $track,
+            'options' => $options,
+            'size' => $size,
+            'category' => $category,
+            'gateway' => $gateway,
+            'app' => $app,
+        ])->setPaper('a4', 'portrait');
+
+        return $pdf->stream('voucher.pdf');
+    }
+
+
     public function error($prefix)
     {
         $event = Event::where('prefix', $prefix)->first();
