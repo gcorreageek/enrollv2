@@ -404,6 +404,7 @@ class EnrollController extends Controller
             'transaction' => $transaction,
             'session_token' => $sessionToken,
             'session_key' => $sessionKey,
+            'url' => $prefix . '/' . $engine->id . '/' . $track->id . '/' . $ticket . '/' . $encrypted_runner_id . '/checkout',
         ]);
     }
 
@@ -426,12 +427,17 @@ class EnrollController extends Controller
             $transaction->error = $response['data']['CODACCION'];
             $transaction->hash = $response['data']['ETICKET'];
             $transaction->message = $response['data']['DSC_COD_ACCION'];
+            $transaction->gateway_datetime = $response['data']['FECHAYHORA_TX'];
             $transaction->save();
             if ($transaction->status == 1) {
                 return redirect($prefix . '/' . $engine->id . '/' . $track->id . '/' . $ticket . '/' . $encrypted_runner_id . '/subscribe');
             } else {
                 return redirect($prefix . '/error')->with([
-                    'error' => 'Lo sentimos, la operación fue rechazada. Por favor comuníquese con su banco e intente nuevamente.'
+                    'error' => '
+                        Lo sentimos, la operación fue rechazada. Por favor comuníquese con su banco e intente nuevamente.<br />
+                        <p>Transacción : ' . $transaction->id. '</p>
+                        <p>Fecha y hora : ' . $transaction->gateway_datetime . '</p>
+                        <p>Motivo : ' . $transaction->message . '</p>'
                 ]);
             }
         } else {

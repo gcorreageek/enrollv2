@@ -40,7 +40,7 @@
     <div class="col-lg-6 col-lg-offset-3 text-center" id="pay_button">
         @if($transaction->gateway->checkout == 'onSite')
             @if($transaction->gateway->id == 1)
-                {!! Form::open([]) !!}
+                {!! Form::open(['url' => $url]) !!}
                 <script src="https://static-content.vnforapps.com/v1/js/checkout.js?qa=true"
                         data-sessiontoken="{{ $session_token }}"
                         data-merchantid="{{ $transaction->gateway->store_id }}"

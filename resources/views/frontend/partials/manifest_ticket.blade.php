@@ -31,12 +31,19 @@
         <div class="manifest_ticket_value">{{ $transaction->id }}</div>
         <div class="manifest_ticket_key color_accent">Monto</div>
         <div class="manifest_ticket_value">PEN (S/.) {{ $transaction->amount }}</div>
+        <div class="manifest_ticket_key color_accent">Fecha</div>
+        @if(is_null($transaction->gateway_datetime))
+            <div class="manifest_ticket_value">{{ $options->updated_at }}</div>
+        @else
+            <div class="manifest_ticket_value">{{ $transaction->gateway_datetime }}</div>
+        @endif
     @endif
     @if($options->code_id > 0)
         <div class="manifest_ticket_value">Código de Inscripción</div>
         <div class="manifest_ticket_key color_accent">Transacción / Código</div>
         <div class="manifest_ticket_value">{{ $code->code }}</div>
+        <div class="manifest_ticket_key color_accent">Fecha</div>
+        <div class="manifest_ticket_value">{{ $options->updated_at }}</div>
     @endif
-    <div class="manifest_ticket_key color_accent">Fecha</div>
-    <div class="manifest_ticket_value">{{ $options->updated_at }}</div>
+
 </div>
