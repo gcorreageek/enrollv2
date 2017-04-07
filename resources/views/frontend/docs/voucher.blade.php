@@ -36,7 +36,11 @@
         </tr>
         <tr>
             <td>Fecha y hora</td>
-            <td>{{ $transaction->gateway_datetime }}</td>
+            @if(is_null($transaction->gateway_datetime) || $transaction->gateway_datetime == "")
+                <td>{{ $transaction->updated_at }}</td>
+            @else
+                <td>{{ $transaction->gateway_datetime }}</td>
+            @endif
         </tr>
         <tr>
             <td>Importe</td>

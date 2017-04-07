@@ -1,6 +1,10 @@
 <div class="manifest_ticket_section" id="event">
     <h3>Evento</h3>
-    <div class="manifest_ticket_key color_accent">Num. Corredor</div>
+    @if($track->timed == true)
+        <div class="manifest_ticket_key color_accent">Num. Corredor</div>
+    @else
+        <div class="manifest_ticket_key color_accent">Num. Inscripción</div>
+    @endif
     <div class="manifest_ticket_value">{{ $options->bib }}</div>
     <div class="manifest_ticket_key color_accent">Evento</div>
     <div class="manifest_ticket_value">{{ $track->name }} ({{ $track->slug }})</div>

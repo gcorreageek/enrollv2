@@ -22,9 +22,12 @@ class Track extends Model
     public function runners()
     {
         return $this->belongsToMany('App\Runner')->withPivot(
+            'id',
             'bib',
             'ticket',
             'enrolled',
+            'enabled',
+            'error',
             'code_id',
             'transaction_id',
             'category_id',
@@ -37,7 +40,8 @@ class Track extends Model
             'relative_relationship',
             'relative_name',
             'relative_phone',
-            'comment'
+            'comment',
+            'log'
         )->withTimestamps();
     }
 
@@ -106,13 +110,6 @@ class Track extends Model
         }
         return $category;
     }
-
-
-//    public function genderSafe($gender)
-//    {
-//        $genderSafe = (is_null($this->gender) || $this->gender == $gender);
-//        return $genderSafe;
-//    }
 
 
     public function generateBib($range)

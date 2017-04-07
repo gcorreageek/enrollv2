@@ -7,7 +7,6 @@
 @inject("cities", "App\Http\Utilities\City")
 @inject("bloods", "App\Http\Utilities\Blood")
 
-
 @section("content")
 
     <div class="col-xs-12">

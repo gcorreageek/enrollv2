@@ -32,10 +32,13 @@ class Runner extends Model
 
     public function tracks()
     {
-        return $this->belongsToMany('App\Track')->withPivot([
+        return $this->belongsToMany('App\Track')->withPivot(
+            'id',
             'bib',
             'ticket',
             'enrolled',
+            'enabled',
+            'error',
             'code_id',
             'transaction_id',
             'category_id',
@@ -48,8 +51,9 @@ class Runner extends Model
             'relative_relationship',
             'relative_name',
             'relative_phone',
-            'comment'
-        ])->withTimestamps();
+            'comment',
+            'log'
+        )->withTimestamps();
     }
 
 

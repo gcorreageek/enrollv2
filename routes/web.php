@@ -47,19 +47,19 @@ Route::get('webservice/insights/{event}', 'ServiceController@insights');
 
 
 
-
-
-
-
-//Route::get('admin/runner_search', 'AdminController@runnerSearch');
-//Route::post('admin/runner_found', 'AdminController@runnerFound');
 Route::any('admin/runner', 'RunnerController@index');
 Route::get('admin/runner/{id}', 'RunnerController@show');
 Route::get('admin/runner/{id}/edit', 'RunnerController@edit');
 Route::post('admin/runner/{id}/update', 'RunnerController@update');
 
-Route::get('admin/{runner_id}/{track_id}/{bib}/get_new_bib', 'AdminController@newBib');
-Route::get('admin/{runner_id}/{track_id}/{bib}/get_new_track', 'AdminController@newTrack');
+Route::get('admin/subscription/{runner_id}/{track_id}', 'SubscriptionController@show');
+Route::get('admin/subscription/{runner_id}/{track_id}/new_bib', 'SubscriptionController@newBib');
+Route::get('admin/subscription/{runner_id}/{track_id}/new_track', 'SubscriptionController@getNewTrack');
+Route::post('admin/subscription/{runner_id}/{track_id}/new_track', 'SubscriptionController@saveNewTrack');
+Route::get('admin/subscription/{runner_id}/{track_id}/edit', 'SubscriptionController@edit');
+Route::post('admin/subscription/{runner_id}/{track_id}/update', 'SubscriptionController@update');
+
+Route::get('admin/error', 'AdminController@error');
 
 Route::any('admin/{prefix}/export', 'EventController@exportRunners');
 

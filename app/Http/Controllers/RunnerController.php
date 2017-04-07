@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Error;
 use App\Runner;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -99,6 +101,28 @@ class RunnerController extends Controller
     public function update(Request $request, $id)
     {
         $runner = Runner::find($id);
+        $new_dob = Carbon::parse($request->get('dob'));
+        $tracks = $runner->tracks;
+        foreach ($tracks as $track) {
+            if ($track->engine->event->date > Carbon::now() ) {
+                $age = $track->engine->event->date->diffInYears($runner->dob);
+
+                $error_array = Error::unwrap($track->pivot->error);
+                if ($track->categorySafe($age, $new_dob->year, $runner->gender) == false) {
+                    array_push($error_array, 'reviewTrack');
+                } else {
+                    if (in_array("reviewTrack", $error_array)) {
+                        $key = array_search('reviewTrack',$error_array);
+                        if($key !== false){
+                            unset($error_array[$key]);
+                        }
+                    }
+                }
+                $pivot = ['error' => Error::wrap($error_array)];
+                $runner->tracks()->updateExistingPivot($track->id, $pivot);
+            }
+        }
+
         $runner->update($request->all());
 
         $runner = Runner::find($id);

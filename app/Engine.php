@@ -42,8 +42,22 @@ class Engine extends Model
         $availableTracks = collect();
         foreach ($this->tracks as $track){
             $categorySafe = $track->categorySafe($age, $year, $gender);
-            //$genderSafe = $track->genderSafe($gender);
             if ($categorySafe == true) {
+                $availableTracks->push($track);
+            }
+        }
+        return $availableTracks;
+    }
+
+
+    public function getCheaperSafeTracks($age, $year, $gender, $current_track_id, $currentTrackPrice, $now)
+    {
+        $availableTracks = collect();
+        foreach ($this->tracks as $track){
+            $categorySafe = $track->categorySafe($age, $year, $gender);
+            $newTrackPrice = $track->getCurrentRate($now)->price;
+            $newTrackId = $track->id;
+            if ($categorySafe == true && $newTrackPrice <= $currentTrackPrice && $newTrackId != $current_track_id) {
                 $availableTracks->push($track);
             }
         }

@@ -259,6 +259,7 @@ class EnrollController extends Controller
         if ($attachPivot == true) {
             if ($runner->tracks()->wherePivot('track_id', $track->id)->count() == 0) {
                 $track->runners()->attach($runner->id, [
+                    'enabled' => false,
                     'bib' => 0,
                     'ticket' => $ticket,
                     'code_id' => $code->id,
@@ -308,6 +309,7 @@ class EnrollController extends Controller
             'event' => $event,
             'ticket' => $ticket,
             'options' => $options,
+            'edit_mode' => false,
         ]);
     }
 
@@ -489,38 +491,48 @@ class EnrollController extends Controller
         $engine = Engine::find($engine_id);
         $track = Track::find($track_id);
         $runner = Runner::find(Crypt::decrypt($encrypted_runner_id));
-        $options = $runner->tracks()->wherePivot('ticket', $ticket)->wherePivot('track_id', $track->id)->first()->pivot;
+        //$options = $runner->tracks()->wherePivot('ticket', $ticket)->wherePivot('track_id', $track->id)->first()->pivot;
+        $subscription = $runner->tracks()->find($track_id)->pivot;
         $code = Code::makeDummy();
         $transaction = Transaction::makeDummy();
         $gateway = Gateway::makeDummy();
         $range = Range::makeDummy();
 
-        if ($options->code_id > 0) {
-            $code = Code::find($options->code_id);
+        if ($subscription->code_id > 0) {
+            $code = Code::find($subscription->code_id);
             $range = Range::find($code->range_id);
             $code->redeem();
         }
 
-        if ($options->transaction_id > 0) {
-            $transaction = Transaction::find($options->transaction_id);
+        if ($subscription->transaction_id > 0) {
+            $transaction = Transaction::find($subscription->transaction_id);
             $gateway = Gateway::find($transaction->gateway_id);
             $range = $track->ranges()->wherePivot('default', true)->first();
         }
 
-        if ($options->bib > 0) {
-            $bib = $options->bib;
+        if ($subscription->bib > 0) {
+            $bib = $subscription->bib;
         } else {
             $bib = $track->generateBib($range);
         }
 
         $category = $track->assignCategory($event->date->diffInYears($runner->dob), $runner->dob->year, $range->id);
 
-        DB::update("UPDATE runner_track SET enrolled = true, bib = :bib, category_id = :category_id WHERE ticket = :ticket AND track_id = :track_id", ['bib' => $bib, 'category_id' => $category->id, 'ticket' => $ticket, 'track_id' => $track->id]);
+        $pivot = [
+            'enrolled' => true,
+            'enabled' => true,
+            'bib' => $bib,
+            'category_id' => $category->id,
+        ];
 
-        $size = Size::find($options->size_id);
+        $runner->tracks()->updateExistingPivot($track->id, $pivot);
+
+        //DB::update("UPDATE runner_track SET enrolled = true, status = 'ok', bib = :bib, category_id = :category_id WHERE ticket = :ticket AND track_id = :track_id", ['bib' => $bib, 'category_id' => $category->id, 'ticket' => $ticket, 'track_id' => $track->id]);
+
+        $size = Size::find($subscription->size_id);
         $garment = Garment::find($track->garment_id);
-        $spent = $garment->sizes()->wherePivot('gender', $runner->gender)->find($size->id)->pivot->spent;
-        $garment->sizes()->wherePivot('gender', $runner->gender)->updateExistingPivot($size->id, ['spent' => $spent + 1]);
+
+        $garment->grabSize($size, $runner);
 
         try {
             Mail::to($runner->mail)->send(new Welcome($app, $event, $engine, $track, $runner, $code, $transaction, $gateway, $range, $category, $size, $garment));
@@ -652,6 +664,7 @@ class EnrollController extends Controller
         }
 
         $pdf = PDF::loadView('frontend.docs.pdf', [
+            'encrypted_runner_id' => $encrypted_runner_id,
             'runner' => $runner,
             'transaction' => $transaction,
             'code' => $code,
